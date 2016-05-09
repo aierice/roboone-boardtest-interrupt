@@ -21,13 +21,12 @@ int main(void)
     {
 		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0));
 		send_exp_USART1();
-    	tdelay(500);
+//    	tdelay(500);
     }
 }
 
 void send_exp_USART1( void){
 	while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
 	USART_SendData( USART1,0b10000001);
-	while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
-	USART_SendData( USART1,0b00000001);
+	tdelay(1000);
 }

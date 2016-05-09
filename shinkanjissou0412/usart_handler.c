@@ -25,11 +25,20 @@ void USART3_IRQHandler( void){
 			errorLED_composed();
 		}
 */
-		while(1){
+/*		while(1){
 			GPIO_SetBits( GPIOA,GPIO_Pin_11);
 			tdelay(300);
 			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
 			tdelay(300);
+		}
+*/
+		command = ( uint8_t)USART_ReceiveData( USART3);
+		if(command == 0b10000001){
+			GPIO_SetBits(GPIOA,GPIO_Pin_11);
+			tdelay(100);
+			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+		}
+		else{
 		}
 		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 	}
