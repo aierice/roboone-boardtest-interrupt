@@ -3,8 +3,16 @@
 
 void NVIC_Configuration( void){
 	NVIC_InitTypeDef NVIC_InitStructure;
+	//USARTÇÃäÑÇËçûÇ›ê›íË
 	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn | USART3_IRQn;
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;	//4/29 Ç»Ç≠ÇƒëóêMÇÕìÆÇ¢ÇΩ
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init( &NVIC_InitStructure);
+
+	//tdelayÇÃäÑÇËçûÇ›ê›íË
+	NVIC_InitStructure.NVIC_IRQChannel = SysTick_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init( &NVIC_InitStructure);
