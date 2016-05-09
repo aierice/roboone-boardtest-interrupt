@@ -15,8 +15,8 @@ Discarded input sections
  .debug_abbrev  0x00000000       0x6c ..\obj\test_motion.o
  .debug_aranges
                 0x00000000       0x18 ..\obj\test_motion.o
- .debug_line    0x00000000      0x165 ..\obj\test_motion.o
- .debug_str     0x00000000      0x188 ..\obj\test_motion.o
+ .debug_line    0x00000000      0x1a3 ..\obj\test_motion.o
+ .debug_str     0x00000000      0x1a7 ..\obj\test_motion.o
  .comment       0x00000000       0x71 ..\obj\test_motion.o
  .ARM.attributes
                 0x00000000       0x33 ..\obj\test_motion.o
@@ -96,8 +96,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x48 ..\obj\make_motion.o
  .debug_ranges  0x00000000       0x38 ..\obj\make_motion.o
- .debug_line    0x00000000      0x342 ..\obj\make_motion.o
- .debug_str     0x00000000      0x307 ..\obj\make_motion.o
+ .debug_line    0x00000000      0x39f ..\obj\make_motion.o
+ .debug_str     0x00000000      0x326 ..\obj\make_motion.o
  .comment       0x00000000       0x71 ..\obj\make_motion.o
  .debug_frame   0x00000000       0xe4 ..\obj\make_motion.o
  .ARM.attributes
@@ -189,7 +189,7 @@ Discarded input sections
  .data          0x00000000        0x0 ..\obj\test.o
  .bss           0x00000000        0x0 ..\obj\test.o
  .debug_line    0x00000000        0x0 ..\obj\test.o
- .debug_str     0x00000000       0xaf ..\obj\test.o
+ .debug_str     0x00000000       0xce ..\obj\test.o
  .comment       0x00000000       0x71 ..\obj\test.o
  .ARM.attributes
                 0x00000000       0x33 ..\obj\test.o
@@ -242,8 +242,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x58 ..\obj\stm32f4xx_exti.o
  .debug_ranges  0x00000000       0x48 ..\obj\stm32f4xx_exti.o
- .debug_line    0x00000000      0x2c9 ..\obj\stm32f4xx_exti.o
- .debug_str     0x00000000      0x35d ..\obj\stm32f4xx_exti.o
+ .debug_line    0x00000000      0x345 ..\obj\stm32f4xx_exti.o
+ .debug_str     0x00000000      0x37c ..\obj\stm32f4xx_exti.o
  .comment       0x00000000       0x71 ..\obj\stm32f4xx_exti.o
  .debug_frame   0x00000000      0x148 ..\obj\stm32f4xx_exti.o
  .ARM.attributes
@@ -450,8 +450,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000      0x2f8 ..\obj\stm32f4xx_tim.o
  .debug_ranges  0x00000000      0x2e8 ..\obj\stm32f4xx_tim.o
- .debug_line    0x00000000      0xa8e ..\obj\stm32f4xx_tim.o
- .debug_str     0x00000000      0xdd4 ..\obj\stm32f4xx_tim.o
+ .debug_line    0x00000000      0xb0a ..\obj\stm32f4xx_tim.o
+ .debug_str     0x00000000      0xdf3 ..\obj\stm32f4xx_tim.o
  .comment       0x00000000       0x71 ..\obj\stm32f4xx_tim.o
  .debug_frame   0x00000000      0xe54 ..\obj\stm32f4xx_tim.o
  .ARM.attributes
@@ -835,36 +835,36 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_ranges  0x00000368       0x30 ..\obj\misc.o
  .debug_ranges  0x00000398       0x18 ..\obj\usart_handler.o
 
-.debug_line     0x00000000     0x1a40
- .debug_line    0x00000000      0x4c6 ..\obj\stm32f4xx_usart.o
- .debug_line    0x000004c6       0xa5 ..\obj\startup_stm32f4xx.o
- .debug_line    0x0000056b      0x2d6 ..\obj\initialsetting.o
- .debug_line    0x00000841      0x24b ..\obj\main.o
- .debug_line    0x00000a8c      0x5c5 ..\obj\stm32f4xx_rcc.o
- .debug_line    0x00001051      0x367 ..\obj\stm32f4xx_gpio.o
- .debug_line    0x000013b8      0x20a ..\obj\system_stm32f4xx.o
- .debug_line    0x000015c2      0x269 ..\obj\misc.o
- .debug_line    0x0000182b      0x215 ..\obj\usart_handler.o
+.debug_line     0x00000000     0x1dc1
+ .debug_line    0x00000000      0x542 ..\obj\stm32f4xx_usart.o
+ .debug_line    0x00000542       0xc4 ..\obj\startup_stm32f4xx.o
+ .debug_line    0x00000606      0x352 ..\obj\initialsetting.o
+ .debug_line    0x00000958      0x2a6 ..\obj\main.o
+ .debug_line    0x00000bfe      0x641 ..\obj\stm32f4xx_rcc.o
+ .debug_line    0x0000123f      0x3e3 ..\obj\stm32f4xx_gpio.o
+ .debug_line    0x00001622      0x248 ..\obj\system_stm32f4xx.o
+ .debug_line    0x0000186a      0x2e5 ..\obj\misc.o
+ .debug_line    0x00001b4f      0x272 ..\obj\usart_handler.o
 
-.debug_str      0x00000000     0x19aa
- .debug_str     0x00000000      0x618 ..\obj\stm32f4xx_usart.o
-                                0x693 (size before relaxing)
- .debug_str     0x00000618       0xb4 ..\obj\startup_stm32f4xx.o
-                                0x14b (size before relaxing)
- .debug_str     0x000006cc      0x7f3 ..\obj\initialsetting.o
-                                0xa45 (size before relaxing)
- .debug_str     0x00000ebf      0x12a ..\obj\main.o
-                                0x83b (size before relaxing)
- .debug_str     0x00000fe9      0x5e7 ..\obj\stm32f4xx_rcc.o
-                                0x854 (size before relaxing)
- .debug_str     0x000015d0      0x197 ..\obj\stm32f4xx_gpio.o
-                                0x4a7 (size before relaxing)
- .debug_str     0x00001767       0xb8 ..\obj\system_stm32f4xx.o
-                                0x3ae (size before relaxing)
- .debug_str     0x0000181f      0x117 ..\obj\misc.o
-                                0x3d2 (size before relaxing)
- .debug_str     0x00001936       0x74 ..\obj\usart_handler.o
-                                0x268 (size before relaxing)
+.debug_str      0x00000000     0x1ac1
+ .debug_str     0x00000000      0x637 ..\obj\stm32f4xx_usart.o
+                                0x6b2 (size before relaxing)
+ .debug_str     0x00000637       0xd3 ..\obj\startup_stm32f4xx.o
+                                0x16a (size before relaxing)
+ .debug_str     0x0000070a      0x812 ..\obj\initialsetting.o
+                                0xa64 (size before relaxing)
+ .debug_str     0x00000f1c      0x149 ..\obj\main.o
+                                0x85a (size before relaxing)
+ .debug_str     0x00001065      0x606 ..\obj\stm32f4xx_rcc.o
+                                0x873 (size before relaxing)
+ .debug_str     0x0000166b      0x1b6 ..\obj\stm32f4xx_gpio.o
+                                0x4c6 (size before relaxing)
+ .debug_str     0x00001821       0xd7 ..\obj\system_stm32f4xx.o
+                                0x3cd (size before relaxing)
+ .debug_str     0x000018f8      0x136 ..\obj\misc.o
+                                0x3f1 (size before relaxing)
+ .debug_str     0x00001a2e       0x93 ..\obj\usart_handler.o
+                                0x287 (size before relaxing)
 
 .comment        0x00000000       0x70
  .comment       0x00000000       0x70 ..\obj\stm32f4xx_usart.o
