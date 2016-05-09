@@ -7,6 +7,7 @@ void USART3_IRQHandler( void){
 	uint16_t command = 0;
 	static uint16_t commandfull = 0;
 	if( USART_GetITStatus( USART3,USART_IT_RXNE) != RESET){
+		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
 /*		command = ( uint8_t)USART_ReceiveData( USART3);
 		if(command & 0b0000000010000000 || !commandfull){
@@ -30,6 +31,7 @@ void USART3_IRQHandler( void){
 			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
 			tdelay(300);
 		}
+		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 	}
 }
 

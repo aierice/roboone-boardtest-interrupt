@@ -474,7 +474,7 @@ Linker script and memory map
 
                 0x20020000                _eram = 0x20020000
 
-.text           0x08000000      0xf40
+.text           0x08000000      0xf4c
  *(.isr_vector)
  .isr_vector    0x08000000      0x188 ..\obj\startup_stm32f4xx.o
                 0x08000000                g_pfnVectors
@@ -657,7 +657,7 @@ Linker script and memory map
                 0x08000e28       0xc0 ..\obj\misc.o
                 0x08000e28                NVIC_Init
  .text.USART3_IRQHandler
-                0x08000ee8       0x58 ..\obj\usart_handler.o
+                0x08000ee8       0x64 ..\obj\usart_handler.o
                 0x08000ee8                USART3_IRQHandler
  *(.init)
  *(.fini)
@@ -674,35 +674,35 @@ Linker script and memory map
  *(.rodata*)
  *(.eh_fram e*)
 
-.glue_7         0x08000f40        0x0
+.glue_7         0x08000f4c        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x08000f40        0x0
+.glue_7t        0x08000f4c        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x08000f40        0x0
+.vfp11_veneer   0x08000f4c        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x08000f40        0x0
+.v4_bx          0x08000f4c        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x08000f40        0x0
+.iplt           0x08000f4c        0x0
  .iplt          0x00000000        0x0 ..\obj\test_motion.o
 
-.rel.dyn        0x08000f40        0x0
+.rel.dyn        0x08000f4c        0x0
  .rel.iplt      0x00000000        0x0 ..\obj\test_motion.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x08000f40                __exidx_start = .
+                0x08000f4c                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x08000f40                __exidx_end = .
-                0x08000f40                __etext = .
-                0x08000f40                _sidata = __etext
+                0x08000f4c                __exidx_end = .
+                0x08000f4c                __etext = .
+                0x08000f4c                _sidata = __etext
 
-.data           0x20000000       0x24 load address 0x08000f40
+.data           0x20000000       0x24 load address 0x08000f4c
                 0x20000000                __data_start__ = .
                 0x20000000                _sdata = __data_start__
  *(vtable)
@@ -730,10 +730,10 @@ Linker script and memory map
                 0x20000024                __data_end__ = .
                 0x20000024                _edata = __data_end__
 
-.igot.plt       0x20000024        0x0 load address 0x08000f64
+.igot.plt       0x20000024        0x0 load address 0x08000f70
  .igot.plt      0x00000000        0x0 ..\obj\test_motion.o
 
-.bss            0x20000024        0x4 load address 0x08000f64
+.bss            0x20000024        0x4 load address 0x08000f70
                 0x20000024                . = ALIGN (0x4)
                 0x20000024                __bss_start__ = .
                 0x20000024                _sbss = __bss_start__
@@ -752,7 +752,7 @@ Linker script and memory map
  *(.heap*)
                 0x20000028                __HeapLimit = .
 
-.co_stack       0x20000028      0x800 load address 0x08000f68
+.co_stack       0x20000028      0x800 load address 0x08000f74
                 0x20000028                . = ALIGN (0x8)
  *(.co_stack .co_stack.*)
  .co_stack      0x20000028      0x800 ..\obj\startup_stm32f4xx.o
@@ -782,7 +782,7 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q2/bin/../lib/gcc/arm
 END GROUP
 OUTPUT(shinkanjissou0412.elf elf32-littlearm)
 
-.debug_info     0x00000000     0x3a09
+.debug_info     0x00000000     0x3a1f
  .debug_info    0x00000000      0x9c2 ..\obj\stm32f4xx_usart.o
  .debug_info    0x000009c2       0xed ..\obj\startup_stm32f4xx.o
  .debug_info    0x00000aaf      0x736 ..\obj\initialsetting.o
@@ -791,7 +791,7 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_info    0x00002688      0x602 ..\obj\stm32f4xx_gpio.o
  .debug_info    0x00002c8a      0x592 ..\obj\system_stm32f4xx.o
  .debug_info    0x0000321c      0x53d ..\obj\misc.o
- .debug_info    0x00003759      0x2b0 ..\obj\usart_handler.o
+ .debug_info    0x00003759      0x2c6 ..\obj\usart_handler.o
 
 .debug_abbrev   0x00000000      0xc03
  .debug_abbrev  0x00000000      0x155 ..\obj\stm32f4xx_usart.o
@@ -835,7 +835,7 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_ranges  0x00000368       0x30 ..\obj\misc.o
  .debug_ranges  0x00000398       0x18 ..\obj\usart_handler.o
 
-.debug_line     0x00000000     0x1dc8
+.debug_line     0x00000000     0x1dc9
  .debug_line    0x00000000      0x542 ..\obj\stm32f4xx_usart.o
  .debug_line    0x00000542       0xc4 ..\obj\startup_stm32f4xx.o
  .debug_line    0x00000606      0x359 ..\obj\initialsetting.o
@@ -844,7 +844,7 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_line    0x00001246      0x3e3 ..\obj\stm32f4xx_gpio.o
  .debug_line    0x00001629      0x248 ..\obj\system_stm32f4xx.o
  .debug_line    0x00001871      0x2e5 ..\obj\misc.o
- .debug_line    0x00001b56      0x272 ..\obj\usart_handler.o
+ .debug_line    0x00001b56      0x273 ..\obj\usart_handler.o
 
 .debug_str      0x00000000     0x1ac1
  .debug_str     0x00000000      0x637 ..\obj\stm32f4xx_usart.o
@@ -864,7 +864,7 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_str     0x000018f8      0x136 ..\obj\misc.o
                                 0x3f1 (size before relaxing)
  .debug_str     0x00001a2e       0x93 ..\obj\usart_handler.o
-                                0x287 (size before relaxing)
+                                0x296 (size before relaxing)
 
 .comment        0x00000000       0x70
  .comment       0x00000000       0x70 ..\obj\stm32f4xx_usart.o
