@@ -34,10 +34,11 @@ void USART3_IRQHandler( void){
 */
 		command = ( uint8_t)USART_ReceiveData( USART3);
 		if(command == 0b10000001){
-			GPIO_SetBits(GPIOA,GPIO_Pin_11);
+			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+//			tdelay(1);
+//			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 		}
 		else{
-			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 		}
 		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 	}

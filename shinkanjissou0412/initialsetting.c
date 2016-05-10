@@ -3,6 +3,7 @@
 
 void NVIC_Configuration( void){
 	NVIC_InitTypeDef NVIC_InitStructure;
+	NVIC_SetPriorityGrouping(NVIC_PriorityGroup_4);
 	//USARTÇÃäÑÇËçûÇ›ê›íË
 	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn | USART3_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;

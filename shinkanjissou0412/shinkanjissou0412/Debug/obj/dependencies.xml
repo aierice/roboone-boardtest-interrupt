@@ -10,9 +10,7 @@
          <include file="..\..\..\cmsis\core_cmFunc.h"/>
          <include file="..\..\..\cmsis\core_cm4_simd.h"/>
       </source>
-      <source file="..\..\..\usart_handler.h" lastModified="15470c570f1">
-      </source>
-      <source file="..\..\..\initialsetting.c" lastModified="15495fe0cf9">
+      <source file="..\..\..\initialsetting.c" lastModified="1549b4d9b44">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\initialsetting.h"/>
       </source>
