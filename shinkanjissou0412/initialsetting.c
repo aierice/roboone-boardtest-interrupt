@@ -1,6 +1,8 @@
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 
+extern uint8_t sendbuf[10000];
+
 void NVIC_Configuration( void){
 	NVIC_InitTypeDef NVIC_InitStructure;
 	//USARTÇÃäÑÇËçûÇ›ê›íË
@@ -9,6 +11,13 @@ void NVIC_Configuration( void){
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init( &NVIC_InitStructure);
+
+	// DMAäÑÇËçûÇ›(serveTx)ÇÃê›íË
+	NVIC_InitStructure.NVIC_IRQChannel = DMA2_Stream7_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
 
 	//tdelayÇÃäÑÇËçûÇ›ê›íË
 	NVIC_InitStructure.NVIC_IRQChannel = SysTick_IRQn;
@@ -32,7 +41,7 @@ void GPIO_Configuration( void){
 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+		GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_DOWN;
 	GPIO_Init(GPIOC, &GPIO_InitStruct);
 }
@@ -63,6 +72,46 @@ void USART1_Configuration( void){
 
 //	USART_ClearITPendingBit(USART1,USART_IT_RXNE);		//0502í«â¡ÅD
 	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+
+	/* Configure DMA for usart1 */
+	DMA_InitTypeDef DMA_InitStructure;
+
+	DMA_DeInit(DMA2_Stream5);
+	DMA_DeInit(DMA2_Stream7);
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);			//168MHz
+
+	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
+	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_1QuarterFull;
+	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single ;
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+	DMA_InitStructure.DMA_PeripheralBaseAddr =(uint32_t) (&(USART1->DR)) ;
+	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+	DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+	/* Configure TX DMA */
+	DMA_InitStructure.DMA_BufferSize = 1;		//ÇŸÇÒÇ‹Ç©ÅH
+	DMA_InitStructure.DMA_Channel = DMA_Channel_4 ;
+	DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral ;
+	DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)sendbuf;	//uint32_tÇ≈çáÇ¡ÇƒÇ¢ÇÈÇÁÇµÇ¢
+	DMA_Init(DMA2_Stream7,&DMA_InitStructure);
+	DMA_Cmd(DMA2_Stream7,DISABLE);
+//	/* Configure RX DMA */
+//	DMA_InitStructure.DMA_BufferSize = 1;
+//	DMA_InitStructure.DMA_Channel = DMA_Channel_4 ;
+//	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory ;
+//	DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)ServoCommandData.RX_BUFFER ;
+//	DMA_Init(DMA2_Stream5,&DMA_InitStructure);
+//	DMA_Cmd(DMA2_Stream5,ENABLE);
+
+	DMA_ITConfig(DMA2_Stream7, DMA_IT_TC, ENABLE);
+//	DMA_ITConfig(DMA2_Stream5, DMA_IT_TC, ENABLE);
+
+	USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
+//	USART_DMACmd(USART1, USART_DMAReq_Rx, ENABLE);
 
 	USART_Cmd(USART1,ENABLE);
 }

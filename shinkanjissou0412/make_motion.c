@@ -99,12 +99,14 @@ void data_to_motion( int16_t *motion){
 }
 
 void send_data(int16_t *motion){
-	uint8_t counter = 0;
-	while( numofbuf >= counter){
-		while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
-		USART_SendData( USART1,sendbuf[counter]);
-		counter++;
-	}
+//	uint8_t counter = 0;
+//	while( numofbuf >= counter){
+//		while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
+//		USART_SendData( USART1,sendbuf[counter]);
+//		counter++;
+//	}
+	DMA_SetCurrDataCounter(DMA2_Stream7, numofbuf+1);
+	DMA_Cmd(DMA2_Stream7, ENABLE);
 }
 
 void errorLED_command(){
@@ -113,5 +115,16 @@ void errorLED_command(){
 		tdelay(500);
 		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 		tdelay(500);
+	}
+}
+
+/*もしかするといらない*/
+void DMA2_Stream7_IRQHandler(void){
+	if(DMA_GetITStatus(DMA2_Stream7,DMA_IT_TCIF7)){
+		DMA_Cmd(DMA2_Stream7, DISABLE);							// TX DMA Stop
+//		ServoCommandData.TX_RX_isRunning = 0;					// TX RX stop
+
+		DMA_ClearITPendingBit(DMA2_Stream7,DMA_IT_TCIF7);		// clear interrupt flag
+		DMA_Cmd(DMA2_Stream7, DISABLE);
 	}
 }
