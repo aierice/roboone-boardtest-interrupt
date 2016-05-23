@@ -13,8 +13,8 @@
       <target file="test.o" lastModified="154cdd0ce3b">
          <source file="..\..\..\test.c" lastModified="154a9849d7a"/>
       </target>
-      <target file="usart_handler.o" lastModified="154cdd0d3b7">
-         <source file="..\..\..\usart_handler.c" lastModified="154cd8fb5c0"/>
+      <target file="usart_handler.o" lastModified="154dcfe17db">
+         <source file="..\..\..\usart_handler.c" lastModified="154dcfe13ab"/>
       </target>
       <target file="initialsetting.o" lastModified="154cdd0cb6e">
          <source file="..\..\..\initialsetting.c" lastModified="154cdcfd81f"/>
@@ -34,11 +34,11 @@
       <target file="stm32f4xx_exti.o" lastModified="154cdd0d13e">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_exti.c" lastModified="154a9849d62"/>
       </target>
+      <target file="main.o" lastModified="154dd07737f">
+         <source file="..\..\..\main.c" lastModified="154dd076ef5"/>
+      </target>
       <target file="test_motion.o" lastModified="154cdd0c924">
          <source file="..\..\..\test_motion.c" lastModified="154a9849d7b"/>
-      </target>
-      <target file="main.o" lastModified="154cdd0cc17">
-         <source file="..\..\..\main.c" lastModified="154cd8fb595"/>
       </target>
       <target file="stm32f4xx_rcc.o" lastModified="154cdd0cda8">
          <source file="..\..\..\cmsis_lib\source\stm32f4xx_rcc.c" lastModified="154a9849d63"/>

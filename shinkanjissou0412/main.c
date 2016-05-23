@@ -20,8 +20,11 @@ int main(void)
 	while(1)
     {
 		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0));
-		send_exp_USART1();
-//    	tdelay(500);
+		do_motion(0b1000001000000010);
+		GPIO_SetBits(GPIOA,GPIO_Pin_11);
+		tdelay(500);
+    	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+    	tdelay(500);
     }
 }
 
