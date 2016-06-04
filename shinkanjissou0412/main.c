@@ -1,6 +1,7 @@
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 #include"make_motion.h"
+#include"millis.h"
 
 void send_exp_USART1(void);
 
@@ -11,6 +12,7 @@ int main(void)
 	NVIC_Configuration();
 	USART1_Configuration();
 	USART3_Configuration();
+	TIM3_Configuration();
 
 	if(SysTick_Config(SystemCoreClock / 1000)){
 		while(1);
@@ -19,12 +21,14 @@ int main(void)
 //	do_motion(0b0111111111111111);
 	while(1)
     {
-		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0));
+/*		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0));
 		do_motion(0b1000001000000010);
 		GPIO_SetBits(GPIOA,GPIO_Pin_11);
 		tdelay(500);
     	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
     	tdelay(500);
+*/
+		millis_test();
     }
 }
 
