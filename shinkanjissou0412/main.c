@@ -2,6 +2,7 @@
 #include"initialsetting.h"
 #include"make_motion.h"
 #include"millis.h"
+#include"usart3.h"
 
 void send_exp_USART1(void);
 
@@ -28,7 +29,7 @@ int main(void)
     	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
     	tdelay(500);
 */
-		millis_test();
+//		millis_test();
     }
 }
 

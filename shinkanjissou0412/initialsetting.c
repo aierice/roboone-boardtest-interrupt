@@ -76,7 +76,7 @@ void USART1_Configuration( void){
 	/* Configure DMA for usart1 */
 	DMA_InitTypeDef DMA_InitStructure;
 
-	DMA_DeInit(DMA2_Stream5);
+//	DMA_DeInit(DMA2_Stream5);
 	DMA_DeInit(DMA2_Stream7);
 
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);			//168MHz
@@ -115,7 +115,7 @@ void USART1_Configuration( void){
 
 	USART_Cmd(USART1,ENABLE);
 }
-
+/*
 void USART3_Configuration( void){
 	//USART3ÇÃRXÉsÉìÇÕPC11ÅBTXÉsÉìÇÕPC10
 	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOC, ENABLE);
@@ -145,7 +145,7 @@ void USART3_Configuration( void){
 
 	USART_Cmd(USART3,ENABLE);
 }
-
+*/
 void SysTick_Handler(void){
 	if(timingdelay){
 		timingdelay--;

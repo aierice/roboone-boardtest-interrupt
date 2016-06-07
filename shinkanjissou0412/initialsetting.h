@@ -4,7 +4,7 @@
 void NVIC_Configuration(void);
 void GPIO_Configuration(void);
 void USART1_Configuration(void);
-void USART3_Configuration(void);
+//void USART3_Configuration(void);
 uint32_t timingdelay;
 void tdelay(uint32_t nTime);
 
