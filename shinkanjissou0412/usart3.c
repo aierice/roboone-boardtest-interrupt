@@ -1,7 +1,9 @@
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 
-extern uint32_t RxBuff[];
+extern uint32_t *RxBuff;
+extern uint16_t commandfull;
+extern uint16_t precommandfull;
 
 void USART3_Configuration(void ){
 	NVIC_InitTypeDef NVIC_InitStructure;
@@ -86,6 +88,48 @@ void DMA1_Stream1_IRQHandler (void) {
 //	else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 }
 
-void USART3_IRQHandler(void ){
-	GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//void USART3_IRQHandler(void ){
+//	GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//}
+
+
+void USART3_IRQHandler( void){
+	uint16_t command = 0;
+	static uint8_t numoferror = 0;
+	if( USART_GetITStatus( USART3,USART_IT_RXNE) != RESET){
+		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
+		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
+		command = ( uint8_t)USART_ReceiveData( USART3);
+		if(command & 0b0000000010000000){
+			commandfull = 0;		//Ç¢ÇÁÇ»Ç¢ÇÕÇ∏
+			commandfull = command<<8;
+//			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
+		}
+		else if(~command & 0b0000000010000000 || commandfull){
+			commandfull = commandfull ^ command;
+			commandfull = commandfull ^ 0b0000000010000000;
+			precommandfull = commandfull;
+			numoferror = 0;
+//			do_motion( commandfull);
+//			GPIO_SetBits( GPIOA,GPIO_Pin_11);
+//			commandfull = 0;
+		}
+		else{
+			commandfull = precommandfull;
+			numoferror++;
+		}
+		if(numoferror >= 100)commandfull = 0b1111111111111111;	//ã≠êßí‚é~
+		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+	}
+
+
+}
+
+void errorLED_composed( void){
+	while(1){
+			GPIO_SetBits(GPIOA,GPIO_Pin_11);
+			tdelay(900);
+			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+			tdelay(100);
+		}
 }
