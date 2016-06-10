@@ -7,6 +7,7 @@ uint8_t sendbuf[10000];
 uint8_t numofbuf;
 
 void do_motion(uint16_t commandfull){
+	USART_Cmd(USART3,DISABLE);
 	select_motion(commandfull);
 }
 
@@ -15,7 +16,7 @@ void select_motion(uint16_t commandfull){
 //	if( commandfull == previouscommand)loopmotion(commandfull);
 //	else{
 		switch(commandfull){
-		case 0b1000000100000001:
+		case 0b1000000110000001:
 			data_to_motion( (int16_t*)test_Start);
 								break;
 		case 0b1000001000000010:
@@ -28,6 +29,7 @@ void select_motion(uint16_t commandfull){
 //		}
 	}
 	previouscommand = commandfull;
+	USART_Cmd(USART3,ENABLE);
 }
 
 void torque_on( int16_t *motion){	//motion[i]*2を2*motion[i]に変え、uint8_tをint8_tにしたら動いた。//と思ったら動いていない//動いた。test_motionでIDが小さい方からすべて使われることが前提になっているので、注意

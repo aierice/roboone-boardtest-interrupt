@@ -6,15 +6,15 @@ extern uint8_t sendbuf[10000];
 void NVIC_Configuration( void){
 	NVIC_InitTypeDef NVIC_InitStructure;
 	//USARTÇÃäÑÇËçûÇ›ê›íË
-	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn | USART3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn | USART3_IRQn;	//USART1_IRQnÇÕÇ¢ÇÁÇ»Ç¢ÅH
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 3;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init( &NVIC_InitStructure);
 
 	// DMAäÑÇËçûÇ›(serveTx)ÇÃê›íË
 	NVIC_InitStructure.NVIC_IRQChannel = DMA2_Stream7_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);

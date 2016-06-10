@@ -19,14 +19,15 @@ int main(void)
 		while(1);
 	}
 
-//	do_motion(0b0111111111111111);
+	do_motion(0b0111111111111111);
 	while(1)
     {
-		do_motion(0b0111111111111111);
+/*		do_motion(0b0111111111111111);
 		tdelay(1000);
 		do_motion(0b1000000100000001);
 		GPIO_SetBits(GPIOA,GPIO_Pin_11);
 		tdelay(1000);
+*/
 /*		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0));
 		do_motion(0b1000001000000010);
 		GPIO_SetBits(GPIOA,GPIO_Pin_11);

@@ -94,6 +94,7 @@ void DMA1_Stream1_IRQHandler (void) {
 
 
 void USART3_IRQHandler( void){
+
 	uint16_t command = 0;
 	static uint8_t numoferror = 0;
 	if( USART_GetITStatus( USART3,USART_IT_RXNE) != RESET){
@@ -110,15 +111,18 @@ void USART3_IRQHandler( void){
 			commandfull = commandfull ^ 0b0000000010000000;
 			precommandfull = commandfull;
 			numoferror = 0;
-//			do_motion( commandfull);
+			do_motion( commandfull);
 //			GPIO_SetBits( GPIOA,GPIO_Pin_11);
-//			commandfull = 0;
+			commandfull = 0;
 		}
 		else{
 			commandfull = precommandfull;
 			numoferror++;
 		}
-		if(numoferror >= 100)commandfull = 0b1111111111111111;	//ã≠êßí‚é~
+		if(numoferror >= 100){
+			while(1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+			commandfull = 0b1111111111111111;	//ã≠êßí‚é~
+		}
 		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 	}
 
