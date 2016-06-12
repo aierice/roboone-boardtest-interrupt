@@ -6,8 +6,8 @@
 
 int16_t test_Start[4][15]={
 {  2, 13,    1,    2,    3,    4,    5,    6,    7,    8,    9,   10,   11,   12,   13},//(一個目モーションの総フレーム数、二個目サーボの総数、三個目以降が指定したID)
-{  100, 0,  50,  300,  -50,  -50,   50,   50,  150, -300,  -50, -1500,  -50,  -50,  100},//初期姿勢(一個目移動時間、二個目待機時間、三個目以降角度)
-{  100, 0,  50,    0,    0,    0,    0,    0,   50,  100,    0,-1000,  -50,  -50,  -50},//以下モーションデータ(一個目移動時間、二個目待機時間、三個目以降角度)
+{  100, 0, 500,  300,  -50,  -50,   50,   50,  150, -300,  -50, -1500,  -50,  -50,  100},//初期姿勢(一個目移動時間、二個目待機時間、三個目以降角度)
+{  100, 0,-1500,    0,    0,    0,    0,    0,   50,  100,    0,-1000,  -50,  -50,  -50},//以下モーションデータ(一個目移動時間、二個目待機時間、三個目以降角度)
 {  100, 0,    0,  100,  100,  100,    0,    0,   50,   80,  150, -500,   50,   50,  -80}
 };
 
@@ -22,8 +22,10 @@ extern uint8_t sendbuf[10000];
 extern uint8_t numofbuf;
 extern uint32_t period;
 extern uint32_t maxperiod;
+uint8_t DMA2flag = 0;
 
 void do_motion(uint16_t commandfull){
+	DMA2flag = 1;
 	USART_Cmd(USART3,DISABLE);
 	select_motion(commandfull);
 }
@@ -153,10 +155,10 @@ void errorLED_command(){
 /*もしかするといらない*/
 void DMA2_Stream7_IRQHandler(void){
 	if(DMA_GetITStatus(DMA2_Stream7,DMA_IT_TCIF7)){
-		DMA_Cmd(DMA2_Stream7, DISABLE);							// TX DMA Stop
+//		DMA_Cmd(DMA2_Stream7, DISABLE);							// TX DMA Stop
 //		ServoCommandData.TX_RX_isRunning = 0;					// TX RX stop
-
+		DMA2flag = 0;
 		DMA_ClearITPendingBit(DMA2_Stream7,DMA_IT_TCIF7);		// clear interrupt flag
-		DMA_Cmd(DMA2_Stream7, DISABLE);
+//		DMA_Cmd(DMA2_Stream7, DISABLE);
 	}
 }

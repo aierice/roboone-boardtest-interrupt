@@ -5,6 +5,7 @@
 #include"usart3.h"
 
 void send_exp_USART1(void);
+extern uint8_t DMA2flag;
 
 int main(void)
 {
@@ -18,9 +19,11 @@ int main(void)
 	if(SysTick_Config(SystemCoreClock / 1000)){
 		while(1);
 	}
-
+	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 	do_motion(0b0111111111111111);
-	tdelay(10);
+	while(DMA2flag){
+	}
+	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 	while(1)
     {
 /*		do_motion(0b0111111111111111);

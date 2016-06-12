@@ -25,9 +25,9 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h" lastModified="154a9849d5e">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\make_motion.h" lastModified="15542e6254d">
+      <source file="..\..\..\make_motion.h" lastModified="155441d1ca0">
       </source>
-      <source file="..\..\..\make_motion.c" lastModified="15543783b8d">
+      <source file="..\..\..\make_motion.c" lastModified="155441ebc06">
          <include file="..\..\..\make_motion.h"/>
          <include file="..\..\..\initialsetting.h"/>
       </source>
@@ -64,18 +64,11 @@
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_usart.h"/>
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
       </source>
-      <source file="..\..\..\main.c" lastModified="155437edfec">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-         <include file="..\..\..\initialsetting.h"/>
-         <include file="..\..\..\make_motion.h"/>
-         <include file="..\..\..\millis.h"/>
-         <include file="..\..\..\usart3.h"/>
-      </source>
       <source file="..\..\..\cmsis\core_cmInstr.h" lastModified="154a984a521">
       </source>
       <source file="..\..\..\millis.h" lastModified="15542e625c1">
       </source>
-      <source file="..\..\..\millis.c" lastModified="1554324622c">
+      <source file="..\..\..\millis.c" lastModified="1554416c51c">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\initialsetting.h"/>
          <include file="..\..\..\make_motion.h"/>
