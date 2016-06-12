@@ -1,7 +1,11 @@
 #include "stm32f4xx.h"
 #include "initialsetting.h"
+#include "make_motion.h"
 
 extern uint32_t period;
+extern uint32_t maxperiod;
+extern uint16_t commandfull;
+extern uint16_t precommandfull;
 
 void TIM3_Configuration(void){
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -12,7 +16,7 @@ void TIM3_Configuration(void){
 	NVIC_InitTypeDef NVIC_InitStructure;
 
 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 10;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
@@ -35,18 +39,16 @@ uint32_t millis(void ){
 }
 
 void millis_test(void ){
-	while(1){
-		if(millis()%1000 >= 900)GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-		else GPIO_SetBits(GPIOA,GPIO_Pin_11);
-/*
- * 		while(millis()<1000){
- * 			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
- * 		}
- * 		period = 0;
- * 		GPIO_SetBits(GPIOA,GPIO_Pin_11);
- * 		tdelay(10);
- * */
+	if(maxperiod == 10000000){
+//		do_motion(commandfull);
+		do_motion(0b1000000110000001);
 	}
+	else if(maxperiod <= period){
+//		do_motion(precommandfull);
+		do_motion(0b1000000110000001);
+//		GPIO_SetBits(GPIOA,GPIO_Pin_11);
+	}
+//	tdelay(1000);
 }
 
 void TIM3_IRQHandler(void){

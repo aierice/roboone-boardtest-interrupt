@@ -21,7 +21,7 @@ void NVIC_Configuration( void){
 
 	//tdelayÇÃäÑÇËçûÇ›ê›íË
 	NVIC_InitStructure.NVIC_IRQChannel = SysTick_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init( &NVIC_InitStructure);

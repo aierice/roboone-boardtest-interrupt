@@ -12,7 +12,7 @@ int main(void)
 	GPIO_Configuration();
 	NVIC_Configuration();
 	USART1_Configuration();
-	USART3_Configuration();
+//	USART3_Configuration();
 	TIM3_Configuration();
 
 	if(SysTick_Config(SystemCoreClock / 1000)){
@@ -20,6 +20,7 @@ int main(void)
 	}
 
 	do_motion(0b0111111111111111);
+	tdelay(10);
 	while(1)
     {
 /*		do_motion(0b0111111111111111);
@@ -35,7 +36,8 @@ int main(void)
     	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
     	tdelay(500);
 */
-//		millis_test();
+		millis_test();
+//		do_motion(0b0111111111111111);
     }
 }
 
