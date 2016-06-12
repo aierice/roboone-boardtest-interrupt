@@ -6,6 +6,7 @@ extern uint32_t period;
 extern uint32_t maxperiod;
 extern uint16_t commandfull;
 extern uint16_t precommandfull;
+extern uint8_t DMA2flag;
 
 void TIM3_Configuration(void){
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -39,6 +40,7 @@ uint32_t millis(void ){
 }
 
 void millis_test(void ){
+//	if(DMA2flag == 0){
 		if(maxperiod == 10000000){
 //			do_motion(commandfull);
 			do_motion(0b1000000110000001);
@@ -49,6 +51,7 @@ void millis_test(void ){
 //			GPIO_SetBits(GPIOA,GPIO_Pin_11);
 		}
 //		tdelay(1000);
+//	}
 }
 
 void TIM3_IRQHandler(void){

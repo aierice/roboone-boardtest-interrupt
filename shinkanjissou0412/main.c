@@ -1,5 +1,6 @@
 #include"stm32f4xx.h"
 #include"initialsetting.h"
+#include"motion_data.h"
 #include"make_motion.h"
 #include"millis.h"
 #include"usart3.h"
@@ -26,6 +27,10 @@ int main(void)
 	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 	while(1)
     {
+		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){;
+		}
+		if(DMA2flag == 1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 /*		do_motion(0b0111111111111111);
 		tdelay(1000);
 		do_motion(0b1000000100000001);
