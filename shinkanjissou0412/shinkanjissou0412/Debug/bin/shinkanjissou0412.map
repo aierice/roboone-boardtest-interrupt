@@ -172,8 +172,6 @@ Discarded input sections
                 0x00000000       0x34 ..\obj\stm32f4xx_gpio.o
  .text.GPIO_PinLockConfig
                 0x00000000       0x44 ..\obj\stm32f4xx_gpio.o
- .text.GPIO_ReadInputDataBit
-                0x00000000       0x34 ..\obj\stm32f4xx_gpio.o
  .text.GPIO_ReadInputData
                 0x00000000       0x1c ..\obj\stm32f4xx_gpio.o
  .text.GPIO_ReadOutputDataBit
@@ -468,7 +466,7 @@ Linker script and memory map
 
                 0x20020000                _eram = 0x20020000
 
-.text           0x08000000     0x1c24
+.text           0x08000000     0x1c94
  *(.isr_vector)
  .isr_vector    0x08000000      0x188 ..\obj\startup_stm32f4xx.o
                 0x08000000                g_pfnVectors
@@ -604,107 +602,110 @@ Linker script and memory map
                 0x080007b4       0x54 ..\obj\main.o
  .text.SysTick_Config
                 0x08000808       0x44 ..\obj\main.o
- .text.main     0x0800084c       0x80 ..\obj\main.o
+ .text.main     0x0800084c       0xa8 ..\obj\main.o
                 0x0800084c                main
  .text.do_motion
-                0x080008cc       0x30 ..\obj\make_motion.o
-                0x080008cc                do_motion
+                0x080008f4       0x30 ..\obj\make_motion.o
+                0x080008f4                do_motion
  .text.select_motion
-                0x080008fc       0x5c ..\obj\make_motion.o
-                0x080008fc                select_motion
+                0x08000924       0x5c ..\obj\make_motion.o
+                0x08000924                select_motion
  .text.torque_on
-                0x08000958       0xd8 ..\obj\make_motion.o
-                0x08000958                torque_on
+                0x08000980       0xd8 ..\obj\make_motion.o
+                0x08000980                torque_on
  .text.data_to_motion
-                0x08000a30      0x400 ..\obj\make_motion.o
-                0x08000a30                data_to_motion
+                0x08000a58      0x400 ..\obj\make_motion.o
+                0x08000a58                data_to_motion
  .text.send_data
-                0x08000e30       0x30 ..\obj\make_motion.o
-                0x08000e30                send_data
+                0x08000e58       0x30 ..\obj\make_motion.o
+                0x08000e58                send_data
  .text.errorLED_command
-                0x08000e60       0x30 ..\obj\make_motion.o
-                0x08000e60                errorLED_command
+                0x08000e88       0x30 ..\obj\make_motion.o
+                0x08000e88                errorLED_command
  .text.DMA2_Stream7_IRQHandler
-                0x08000e90       0x30 ..\obj\make_motion.o
-                0x08000e90                DMA2_Stream7_IRQHandler
+                0x08000eb8       0x30 ..\obj\make_motion.o
+                0x08000eb8                DMA2_Stream7_IRQHandler
  .text.RCC_GetClocksFreq
-                0x08000ec0      0x154 ..\obj\stm32f4xx_rcc.o
-                0x08000ec0                RCC_GetClocksFreq
+                0x08000ee8      0x154 ..\obj\stm32f4xx_rcc.o
+                0x08000ee8                RCC_GetClocksFreq
  .text.RCC_AHB1PeriphClockCmd
-                0x08001014       0x3c ..\obj\stm32f4xx_rcc.o
-                0x08001014                RCC_AHB1PeriphClockCmd
+                0x0800103c       0x3c ..\obj\stm32f4xx_rcc.o
+                0x0800103c                RCC_AHB1PeriphClockCmd
  .text.RCC_APB1PeriphClockCmd
-                0x08001050       0x3c ..\obj\stm32f4xx_rcc.o
-                0x08001050                RCC_APB1PeriphClockCmd
+                0x08001078       0x3c ..\obj\stm32f4xx_rcc.o
+                0x08001078                RCC_APB1PeriphClockCmd
  .text.RCC_APB2PeriphClockCmd
-                0x0800108c       0x3c ..\obj\stm32f4xx_rcc.o
-                0x0800108c                RCC_APB2PeriphClockCmd
+                0x080010b4       0x3c ..\obj\stm32f4xx_rcc.o
+                0x080010b4                RCC_APB2PeriphClockCmd
  .text.TIM3_Configuration
-                0x080010c8       0x6c ..\obj\millis.o
-                0x080010c8                TIM3_Configuration
+                0x080010f0       0x6c ..\obj\millis.o
+                0x080010f0                TIM3_Configuration
  .text.millis_test
-                0x08001134       0x3c ..\obj\millis.o
-                0x08001134                millis_test
+                0x0800115c       0x50 ..\obj\millis.o
+                0x0800115c                millis_test
  .text.TIM3_IRQHandler
-                0x08001170       0x20 ..\obj\millis.o
-                0x08001170                TIM3_IRQHandler
+                0x080011ac       0x20 ..\obj\millis.o
+                0x080011ac                TIM3_IRQHandler
  .text.GPIO_Init
-                0x08001190      0x11c ..\obj\stm32f4xx_gpio.o
-                0x08001190                GPIO_Init
+                0x080011cc      0x11c ..\obj\stm32f4xx_gpio.o
+                0x080011cc                GPIO_Init
+ .text.GPIO_ReadInputDataBit
+                0x080012e8       0x34 ..\obj\stm32f4xx_gpio.o
+                0x080012e8                GPIO_ReadInputDataBit
  .text.GPIO_SetBits
-                0x080012ac       0x1c ..\obj\stm32f4xx_gpio.o
-                0x080012ac                GPIO_SetBits
+                0x0800131c       0x1c ..\obj\stm32f4xx_gpio.o
+                0x0800131c                GPIO_SetBits
  .text.GPIO_ResetBits
-                0x080012c8       0x1c ..\obj\stm32f4xx_gpio.o
-                0x080012c8                GPIO_ResetBits
+                0x08001338       0x1c ..\obj\stm32f4xx_gpio.o
+                0x08001338                GPIO_ResetBits
  .text.GPIO_PinAFConfig
-                0x080012e4       0x90 ..\obj\stm32f4xx_gpio.o
-                0x080012e4                GPIO_PinAFConfig
+                0x08001354       0x90 ..\obj\stm32f4xx_gpio.o
+                0x08001354                GPIO_PinAFConfig
  .text.SystemInit
-                0x08001374       0x58 ..\obj\system_stm32f4xx.o
-                0x08001374                SystemInit
+                0x080013e4       0x58 ..\obj\system_stm32f4xx.o
+                0x080013e4                SystemInit
  .text.SetSysClock
-                0x080013cc       0xf4 ..\obj\system_stm32f4xx.o
+                0x0800143c       0xf4 ..\obj\system_stm32f4xx.o
  .text.DMA_DeInit
-                0x080014c0      0x1a4 ..\obj\stm32f4xx_dma.o
-                0x080014c0                DMA_DeInit
+                0x08001530      0x1a4 ..\obj\stm32f4xx_dma.o
+                0x08001530                DMA_DeInit
  .text.DMA_Init
-                0x08001664       0xac ..\obj\stm32f4xx_dma.o
-                0x08001664                DMA_Init
- .text.DMA_Cmd  0x08001710       0x38 ..\obj\stm32f4xx_dma.o
-                0x08001710                DMA_Cmd
+                0x080016d4       0xac ..\obj\stm32f4xx_dma.o
+                0x080016d4                DMA_Init
+ .text.DMA_Cmd  0x08001780       0x38 ..\obj\stm32f4xx_dma.o
+                0x08001780                DMA_Cmd
  .text.DMA_SetCurrDataCounter
-                0x08001748       0x1c ..\obj\stm32f4xx_dma.o
-                0x08001748                DMA_SetCurrDataCounter
+                0x080017b8       0x1c ..\obj\stm32f4xx_dma.o
+                0x080017b8                DMA_SetCurrDataCounter
  .text.DMA_ITConfig
-                0x08001764       0x74 ..\obj\stm32f4xx_dma.o
-                0x08001764                DMA_ITConfig
+                0x080017d4       0x74 ..\obj\stm32f4xx_dma.o
+                0x080017d4                DMA_ITConfig
  .text.DMA_GetITStatus
-                0x080017d8       0xb0 ..\obj\stm32f4xx_dma.o
-                0x080017d8                DMA_GetITStatus
+                0x08001848       0xb0 ..\obj\stm32f4xx_dma.o
+                0x08001848                DMA_GetITStatus
  .text.DMA_ClearITPendingBit
-                0x08001888       0x5c ..\obj\stm32f4xx_dma.o
-                0x08001888                DMA_ClearITPendingBit
+                0x080018f8       0x5c ..\obj\stm32f4xx_dma.o
+                0x080018f8                DMA_ClearITPendingBit
  .text.DMA1_Stream1_IRQHandler
-                0x080018e4       0x14 ..\obj\usart3.o
-                0x080018e4                DMA1_Stream1_IRQHandler
+                0x08001954       0x14 ..\obj\usart3.o
+                0x08001954                DMA1_Stream1_IRQHandler
  .text.USART3_IRQHandler
-                0x080018f8       0xf0 ..\obj\usart3.o
-                0x080018f8                USART3_IRQHandler
+                0x08001968       0xf0 ..\obj\usart3.o
+                0x08001968                USART3_IRQHandler
  .text.NVIC_Init
-                0x080019e8       0xc0 ..\obj\misc.o
-                0x080019e8                NVIC_Init
+                0x08001a58       0xc0 ..\obj\misc.o
+                0x08001a58                NVIC_Init
  .text.TIM_TimeBaseInit
-                0x08001aa8       0xd4 ..\obj\stm32f4xx_tim.o
-                0x08001aa8                TIM_TimeBaseInit
- .text.TIM_Cmd  0x08001b7c       0x40 ..\obj\stm32f4xx_tim.o
-                0x08001b7c                TIM_Cmd
+                0x08001b18       0xd4 ..\obj\stm32f4xx_tim.o
+                0x08001b18                TIM_TimeBaseInit
+ .text.TIM_Cmd  0x08001bec       0x40 ..\obj\stm32f4xx_tim.o
+                0x08001bec                TIM_Cmd
  .text.TIM_ITConfig
-                0x08001bbc       0x48 ..\obj\stm32f4xx_tim.o
-                0x08001bbc                TIM_ITConfig
+                0x08001c2c       0x48 ..\obj\stm32f4xx_tim.o
+                0x08001c2c                TIM_ITConfig
  .text.TIM_ClearITPendingBit
-                0x08001c04       0x20 ..\obj\stm32f4xx_tim.o
-                0x08001c04                TIM_ClearITPendingBit
+                0x08001c74       0x20 ..\obj\stm32f4xx_tim.o
+                0x08001c74                TIM_ClearITPendingBit
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -720,35 +721,35 @@ Linker script and memory map
  *(.rodata*)
  *(.eh_fram e*)
 
-.glue_7         0x08001c24        0x0
+.glue_7         0x08001c94        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x08001c24        0x0
+.glue_7t        0x08001c94        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x08001c24        0x0
+.vfp11_veneer   0x08001c94        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x08001c24        0x0
+.v4_bx          0x08001c94        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x08001c24        0x0
+.iplt           0x08001c94        0x0
  .iplt          0x00000000        0x0 ..\obj\test_motion.o
 
-.rel.dyn        0x08001c24        0x0
+.rel.dyn        0x08001c94        0x0
  .rel.iplt      0x00000000        0x0 ..\obj\test_motion.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x08001c24                __exidx_start = .
+                0x08001c94                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x08001c24                __exidx_end = .
-                0x08001c24                __etext = .
-                0x08001c24                _sidata = __etext
+                0x08001c94                __exidx_end = .
+                0x08001c94                __etext = .
+                0x08001c94                _sidata = __etext
 
-.data           0x20000000       0xc4 load address 0x08001c24
+.data           0x20000000       0xc4 load address 0x08001c94
                 0x20000000                __data_start__ = .
                 0x20000000                _sdata = __data_start__
  *(vtable)
@@ -784,10 +785,10 @@ Linker script and memory map
                 0x200000c4                __data_end__ = .
                 0x200000c4                _edata = __data_end__
 
-.igot.plt       0x200000c4        0x0 load address 0x08001ce8
+.igot.plt       0x200000c4        0x0 load address 0x08001d58
  .igot.plt      0x00000000        0x0 ..\obj\test_motion.o
 
-.bss            0x200000c4     0x2724 load address 0x08001ce8
+.bss            0x200000c4     0x2724 load address 0x08001d58
                 0x200000c4                . = ALIGN (0x4)
                 0x200000c4                __bss_start__ = .
                 0x200000c4                _sbss = __bss_start__
@@ -816,7 +817,7 @@ Linker script and memory map
  *(.heap*)
                 0x200027e8                __HeapLimit = .
 
-.co_stack       0x200027e8      0x800 load address 0x0800440c
+.co_stack       0x200027e8      0x800 load address 0x0800447c
                 0x200027e8                . = ALIGN (0x8)
  *(.co_stack .co_stack.*)
  .co_stack      0x200027e8      0x800 ..\obj\startup_stm32f4xx.o
@@ -849,23 +850,23 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q2/bin/../lib/gcc/arm
 END GROUP
 OUTPUT(shinkanjissou0412.elf elf32-littlearm)
 
-.debug_info     0x00000000     0x6f90
+.debug_info     0x00000000     0x6fb1
  .debug_info    0x00000000       0xf2 ..\obj\test_motion.o
  .debug_info    0x000000f2      0x9c2 ..\obj\stm32f4xx_usart.o
  .debug_info    0x00000ab4       0xed ..\obj\startup_stm32f4xx.o
  .debug_info    0x00000ba1      0x85a ..\obj\initialsetting.o
- .debug_info    0x000013fb      0x861 ..\obj\main.o
- .debug_info    0x00001c5c      0x4d9 ..\obj\make_motion.o
- .debug_info    0x00002135      0xc4d ..\obj\stm32f4xx_rcc.o
- .debug_info    0x00002d82      0x657 ..\obj\millis.o
- .debug_info    0x000033d9      0x602 ..\obj\stm32f4xx_gpio.o
- .debug_info    0x000039db      0x592 ..\obj\system_stm32f4xx.o
- .debug_info    0x00003f6d      0x739 ..\obj\stm32f4xx_dma.o
- .debug_info    0x000046a6      0x74c ..\obj\usart3.o
- .debug_info    0x00004df2      0x53d ..\obj\misc.o
- .debug_info    0x0000532f     0x1c61 ..\obj\stm32f4xx_tim.o
+ .debug_info    0x000013fb      0x86c ..\obj\main.o
+ .debug_info    0x00001c67      0x4d9 ..\obj\make_motion.o
+ .debug_info    0x00002140      0xc4d ..\obj\stm32f4xx_rcc.o
+ .debug_info    0x00002d8d      0x66d ..\obj\millis.o
+ .debug_info    0x000033fa      0x602 ..\obj\stm32f4xx_gpio.o
+ .debug_info    0x000039fc      0x592 ..\obj\system_stm32f4xx.o
+ .debug_info    0x00003f8e      0x739 ..\obj\stm32f4xx_dma.o
+ .debug_info    0x000046c7      0x74c ..\obj\usart3.o
+ .debug_info    0x00004e13      0x53d ..\obj\misc.o
+ .debug_info    0x00005350     0x1c61 ..\obj\stm32f4xx_tim.o
 
-.debug_abbrev   0x00000000     0x122e
+.debug_abbrev   0x00000000     0x123f
  .debug_abbrev  0x00000000       0x6c ..\obj\test_motion.o
  .debug_abbrev  0x0000006c      0x155 ..\obj\stm32f4xx_usart.o
  .debug_abbrev  0x000001c1       0xb0 ..\obj\startup_stm32f4xx.o
@@ -873,13 +874,13 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_abbrev  0x000003eb      0x195 ..\obj\main.o
  .debug_abbrev  0x00000580      0x156 ..\obj\make_motion.o
  .debug_abbrev  0x000006d6      0x1e3 ..\obj\stm32f4xx_rcc.o
- .debug_abbrev  0x000008b9      0x132 ..\obj\millis.o
- .debug_abbrev  0x000009eb      0x1a3 ..\obj\stm32f4xx_gpio.o
- .debug_abbrev  0x00000b8e      0x136 ..\obj\system_stm32f4xx.o
- .debug_abbrev  0x00000cc4      0x155 ..\obj\stm32f4xx_dma.o
- .debug_abbrev  0x00000e19      0x149 ..\obj\usart3.o
- .debug_abbrev  0x00000f62      0x145 ..\obj\misc.o
- .debug_abbrev  0x000010a7      0x187 ..\obj\stm32f4xx_tim.o
+ .debug_abbrev  0x000008b9      0x143 ..\obj\millis.o
+ .debug_abbrev  0x000009fc      0x1a3 ..\obj\stm32f4xx_gpio.o
+ .debug_abbrev  0x00000b9f      0x136 ..\obj\system_stm32f4xx.o
+ .debug_abbrev  0x00000cd5      0x155 ..\obj\stm32f4xx_dma.o
+ .debug_abbrev  0x00000e2a      0x149 ..\obj\usart3.o
+ .debug_abbrev  0x00000f73      0x145 ..\obj\misc.o
+ .debug_abbrev  0x000010b8      0x187 ..\obj\stm32f4xx_tim.o
 
 .debug_aranges  0x00000000      0x890
  .debug_aranges
@@ -911,21 +912,21 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_aranges
                 0x00000598      0x2f8 ..\obj\stm32f4xx_tim.o
 
-.debug_line     0x00000000     0x3634
+.debug_line     0x00000000     0x3638
  .debug_line    0x00000000      0x1a3 ..\obj\test_motion.o
  .debug_line    0x000001a3      0x542 ..\obj\stm32f4xx_usart.o
  .debug_line    0x000006e5       0xc4 ..\obj\startup_stm32f4xx.o
  .debug_line    0x000007a9      0x364 ..\obj\initialsetting.o
- .debug_line    0x00000b0d      0x2af ..\obj\main.o
- .debug_line    0x00000dbc      0x381 ..\obj\make_motion.o
- .debug_line    0x0000113d      0x641 ..\obj\stm32f4xx_rcc.o
- .debug_line    0x0000177e      0x2e7 ..\obj\millis.o
- .debug_line    0x00001a65      0x3e3 ..\obj\stm32f4xx_gpio.o
- .debug_line    0x00001e48      0x248 ..\obj\system_stm32f4xx.o
- .debug_line    0x00002090      0x47c ..\obj\stm32f4xx_dma.o
- .debug_line    0x0000250c      0x339 ..\obj\usart3.o
- .debug_line    0x00002845      0x2e5 ..\obj\misc.o
- .debug_line    0x00002b2a      0xb0a ..\obj\stm32f4xx_tim.o
+ .debug_line    0x00000b0d      0x2b2 ..\obj\main.o
+ .debug_line    0x00000dbf      0x381 ..\obj\make_motion.o
+ .debug_line    0x00001140      0x641 ..\obj\stm32f4xx_rcc.o
+ .debug_line    0x00001781      0x2e8 ..\obj\millis.o
+ .debug_line    0x00001a69      0x3e3 ..\obj\stm32f4xx_gpio.o
+ .debug_line    0x00001e4c      0x248 ..\obj\system_stm32f4xx.o
+ .debug_line    0x00002094      0x47c ..\obj\stm32f4xx_dma.o
+ .debug_line    0x00002510      0x339 ..\obj\usart3.o
+ .debug_line    0x00002849      0x2e5 ..\obj\misc.o
+ .debug_line    0x00002b2e      0xb0a ..\obj\stm32f4xx_tim.o
 
 .debug_str      0x00000000     0x2c70
  .debug_str     0x00000000      0x163 ..\obj\test_motion.o
@@ -937,20 +938,20 @@ OUTPUT(shinkanjissou0412.elf elf32-littlearm)
  .debug_str     0x00000781      0x93a ..\obj\initialsetting.o
                                 0xb8c (size before relaxing)
  .debug_str     0x000010bb      0x152 ..\obj\main.o
-                                0x863 (size before relaxing)
+                                0x86f (size before relaxing)
  .debug_str     0x0000120d       0xe2 ..\obj\make_motion.o
                                 0x36b (size before relaxing)
  .debug_str     0x000012ef      0x606 ..\obj\stm32f4xx_rcc.o
                                 0x873 (size before relaxing)
- .debug_str     0x000018f5      0x1a3 ..\obj\millis.o
-                                0x90d (size before relaxing)
- .debug_str     0x00001a98      0x1b6 ..\obj\stm32f4xx_gpio.o
+ .debug_str     0x000018f5      0x1b2 ..\obj\millis.o
+                                0x928 (size before relaxing)
+ .debug_str     0x00001aa7      0x1b6 ..\obj\stm32f4xx_gpio.o
                                 0x4c6 (size before relaxing)
- .debug_str     0x00001c4e       0xd7 ..\obj\system_stm32f4xx.o
+ .debug_str     0x00001c5d       0xd7 ..\obj\system_stm32f4xx.o
                                 0x3cd (size before relaxing)
- .debug_str     0x00001d25      0x297 ..\obj\stm32f4xx_dma.o
+ .debug_str     0x00001d34      0x297 ..\obj\stm32f4xx_dma.o
                                 0x565 (size before relaxing)
- .debug_str     0x00001fbc       0xd5 ..\obj\usart3.o
+ .debug_str     0x00001fcb       0xc6 ..\obj\usart3.o
                                 0xa7a (size before relaxing)
  .debug_str     0x00002091      0x136 ..\obj\misc.o
                                 0x3f1 (size before relaxing)

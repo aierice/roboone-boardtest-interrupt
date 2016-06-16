@@ -6,6 +6,9 @@
 
 void send_exp_USART1(void);
 extern uint8_t DMA2flag;
+extern uint16_t commandfull;
+extern uint16_t precommandfull;
+
 
 int main(void)
 {
@@ -44,6 +47,12 @@ int main(void)
     	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
     	tdelay(500);
 */
+		if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){
+			commandfull = 0b1000000110000001;
+		}
+		else {
+			commandfull = 0b1000001000000010;
+		}
 		millis_test();
 //		do_motion(0b0111111111111111);
     }

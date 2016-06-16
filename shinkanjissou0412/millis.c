@@ -44,12 +44,13 @@ uint32_t millis(void ){
 void millis_test(void ){
 //	if(DMA2flag == 0){
 		if(maxperiod == 10000000){
-//			do_motion(commandfull);
-			do_motion(0b1000000110000001);
+			precommandfull = commandfull;
+			do_motion(commandfull);
+//			do_motion(0b1000000110000001);
 		}
 		else if(maxperiod <= period){
-//			do_motion(precommandfull);
-			do_motion(0b1000000110000001);
+			do_motion(precommandfull);
+//			do_motion(0b1000000110000001);
 //			GPIO_SetBits(GPIOA,GPIO_Pin_11);
 		}
 //		tdelay(1000);
