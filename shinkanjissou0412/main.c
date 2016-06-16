@@ -16,7 +16,7 @@ int main(void)
 	GPIO_Configuration();
 	NVIC_Configuration();
 	USART1_Configuration();
-//	USART3_Configuration();
+	USART3_Configuration();
 	TIM3_Configuration();
 
 	if(SysTick_Config(SystemCoreClock / 1000)){
@@ -47,12 +47,13 @@ int main(void)
     	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
     	tdelay(500);
 */
-		if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){
+/*		if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){
 			commandfull = 0b1000000110000001;
 		}
 		else {
 			commandfull = 0b1000001000000010;
 		}
+*/
 		millis_test();
 //		do_motion(0b0111111111111111);
     }

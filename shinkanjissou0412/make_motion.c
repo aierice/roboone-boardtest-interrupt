@@ -22,7 +22,7 @@ void select_motion(uint16_t commandfull){
 		case 0b1000000110000001:
 			data_to_motion( (int16_t*)test_Start);
 								break;
-		case 0b1000001000000010:
+		case 0b1000001010000010:
 			data_to_motion( (int16_t*)test_End);
 								break;
 		case 0b0111111111111111:
