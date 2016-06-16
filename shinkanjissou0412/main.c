@@ -29,8 +29,8 @@ int main(void)
     {
 //		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){;
 //		}
-//		if(DMA2flag == 1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
-//		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+		if(DMA2flag == 1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 /*		do_motion(0b0111111111111111);
 		tdelay(1000);
 		do_motion(0b1000000100000001);
