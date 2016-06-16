@@ -1,9 +1,9 @@
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 
-extern uint32_t *RxBuff;
-extern uint16_t commandfull;
-extern uint16_t precommandfull;
+uint32_t *RxBuff;
+uint16_t commandfull = 0b1000000110000001;//0b1000000010000000;
+uint16_t precommandfull = 0b1000000110000001;//0b1000000010000000;
 
 void USART3_Configuration(void ){
 	NVIC_InitTypeDef NVIC_InitStructure;

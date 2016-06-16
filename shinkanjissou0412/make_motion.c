@@ -1,24 +1,12 @@
 ﻿#include "stm32f4xx.h"
 #include "make_motion.h"
-//#include "motion_data.h"
 #include "initialsetting.h"
-//#include "test_motion.c"
 
-int16_t test_Start[3][15]={
-{  0, 13,    1,    2,    3,    4,    5,    6,    7,    8,    9,   10,   11,   12,   13},//(一個目モーションの総フレーム数、二個目サーボの総数、三個目以降が指定したID)
-{  0, 10,   -500,  300,  -50,  -50,   50,   50,  150, -300,  -50, -1500,  -50,  -50,  100},//初期姿勢(一個目移動時間、二個目待機時間、三個目以降角度)
-{  0, 0,   500,    0,    0,    0,    0,    0,   50,  100,    0,-1000,  -50,  -50,  -50}//以下モーションデータ(一個目移動時間、二個目待機時間、三個目以降角度)
-};
+extern int16_t test_Start[3][15];
+extern int16_t test_End[4][15];
 
-int16_t test_End[4][15]={
-{  2, 13,    1,    2,    3,    4,    5,    6,    7,    8,    9,   10,   11,   12,   13},//(一個目モーションの総フレーム数、二個目サーボの総数、三個目以降が指定したID)
-{  100, 10,    0,  300,  -50,  -50,   50,   50,  150, -300,  -50,-1500,  -50,  -50,  100},//初期姿勢(一個目移動時間、二個目待機時間、三個目以降角度)
-{  20, 100, -150,    0,    0,    0,    0,    0,   50,  100,    0,    0,  -50,  -50,  -50},//以下モーションデータ(一個目移動時間、二個目待機時間、三個目以降角度)
-{  50,   1, -250,  100,  100,  100,    0,    0,   50,   80,  150,  500,   50,   50,  -80}
-};
-
-extern uint8_t sendbuf[10000];
-extern uint8_t numofbuf;
+uint8_t sendbuf[10000];
+uint8_t numofbuf;
 extern uint32_t period;
 extern uint32_t maxperiod;
 uint8_t DMA2flag = 0;
@@ -101,7 +89,7 @@ void data_to_motion( int16_t *motion){
 			numofbuf = 7+5* motion[1];
 			send_data( (int16_t*)motion);
 			period = 0;
-			maxperiod = motion[ ( j+1)*( 2+motion[1])];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];
+			maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];
 			k++;
 		}
 		else{
@@ -122,7 +110,7 @@ void data_to_motion( int16_t *motion){
 			j++;
 			k = 0;
 			period = 0;
-			maxperiod = motion[ ( j+1)*( 2+motion[1])+1];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];
+			maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];
 		}
 	}
 	else{

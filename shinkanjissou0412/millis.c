@@ -1,9 +1,11 @@
 #include "stm32f4xx.h"
 #include "initialsetting.h"
 #include "make_motion.h"
+#include  "usart3.h"
 
-extern uint32_t period;
-extern uint32_t maxperiod;
+uint32_t period = 0;
+uint32_t maxperiod = 10000000;
+
 extern uint16_t commandfull;
 extern uint16_t precommandfull;
 extern uint8_t DMA2flag;
