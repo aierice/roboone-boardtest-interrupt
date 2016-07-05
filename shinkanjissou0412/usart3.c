@@ -107,7 +107,7 @@ void USART3_IRQHandler( void){
 			inpcommandfull = command<<8;
 //			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
 		}
-		else if(~command & 0b0000000010000000 || commandfull){
+		else if(~command & 0b0000000010000000){
 			inpcommandfull = inpcommandfull ^ command;
 			inpcommandfull = inpcommandfull ^ 0b0000000010000000;
 			commandfull = inpcommandfull;
@@ -123,6 +123,9 @@ void USART3_IRQHandler( void){
 			commandfull = 0b1111111111111111;	//‹­§’âŽ~
 		}
 		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+//		if(commandfull=0b1000001010000010)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+//		while(1);
 	}
 
 
