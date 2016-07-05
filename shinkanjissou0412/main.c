@@ -4,7 +4,7 @@
 #include"millis.h"
 #include"usart3.h"
 
-void send_exp_USART1(void);
+void send_exp_USART3(void);
 extern uint8_t DMA2flag;
 extern uint16_t commandfull;
 extern uint16_t precommandfull;
@@ -24,9 +24,6 @@ int main(void)
 	}
 	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 	do_motion(0b0111111111111111);
-//	while(DMA2flag){
-//	}
-//	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 	tdelay(10);
 	while(1)
     {
@@ -34,36 +31,15 @@ int main(void)
 //		}
 		if(DMA2flag == 1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
 		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-/*		do_motion(0b0111111111111111);
-		tdelay(1000);
-		do_motion(0b1000000100000001);
-		GPIO_SetBits(GPIOA,GPIO_Pin_11);
-		tdelay(1000);
-*/
-/*		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0));
-		do_motion(0b1000001000000010);
-		GPIO_SetBits(GPIOA,GPIO_Pin_11);
-		tdelay(500);
-    	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-    	tdelay(500);
-*/
-/*		if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){
-			commandfull = 0b1000000110000001;
-		}
-		else {
-			commandfull = 0b1000001000000010;
-		}
-*/
 		millis_test();
-//		do_motion(0b0111111111111111);
+		send_exp_USART3();
+//		tdelay(10);
     }
 }
 
-void send_exp_USART1( void){
-	while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
-	USART_SendData( USART1,0b10000001);
-	tdelay(1000);
-	while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
-	USART_SendData( USART1,0b10100001);
-	tdelay(1000);
+void send_exp_USART3( void){
+	while( USART_GetFlagStatus( USART3,USART_FLAG_TXE)==RESET);
+	USART_SendData( USART3,0b10000010);
+	while( USART_GetFlagStatus( USART3,USART_FLAG_TXE)==RESET);
+	USART_SendData( USART3,0b00000010);
 }

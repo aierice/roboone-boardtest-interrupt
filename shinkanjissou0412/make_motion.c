@@ -63,12 +63,10 @@ void data_to_motion( int16_t *motion){
 	sendbuf[4] = ( int8_t) 0x1E;	//ロングパケットでは固定
 	sendbuf[5] = ( int8_t) 0x05;	//各要素の数の合計。VID(ID)+位置指定+時間指定=5
 	sendbuf[6] = ( int8_t) motion[1];	//モーターの数
-	static	uint8_t j;
+	static	uint8_t motionorder = 0;
 	uint16_t i = 0;
-	static uint8_t k;
+	static uint8_t moveorwait = 0;
 	int8_t checksum = 0;
-	if(j < 1+motion[0]){
-		if(k == 0){
 //			sendbuf[7] = ( int8_t) 1;
 //			sendbuf[8] = ( int8_t) 0x11;
 //			sendbuf[9] = ( int8_t) 0x22;
@@ -89,16 +87,10 @@ void data_to_motion( int16_t *motion){
 			numofbuf = 7+5* motion[1];
 			send_data( (int16_t*)motion);
 			period = 0;
-			maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];
-			k++;
 		}
 		else{
 			for(i = 0; i < motion[1]; i++){	//待機
 				sendbuf[ 7+i*5] = ( int8_t) motion[i+2];	//IDの指定
-				sendbuf[ 8+i*5] = ( int8_t) (( int16_t)motion[(j+1)*( 2+motion[1])+(i+2)] &0xFF);	//位置
-				sendbuf[ 9+i*5] = ( int8_t) (( int16_t)motion[(j+1)*( 2+motion[1])+(i+2)] >>8);
-				sendbuf[10+i*5] = ( int8_t) (( int16_t)motion[(j+1)*( 2+motion[1])+1] &0xFF);
-				sendbuf[11+i*5] = ( int8_t) (( int16_t)motion[(j+1)*( 2+motion[1])+1] >>8);	//時間
 			}
 			checksum = 0;
 			for( i = 2; i <= 6+5*motion[1]; i++){
@@ -107,14 +99,10 @@ void data_to_motion( int16_t *motion){
 			sendbuf[ 7+5*motion[1]] = ( int8_t)checksum;
 			numofbuf = 7+5*motion[1];
 			send_data( (int16_t*)motion);
-			j++;
-			k = 0;
 			period = 0;
-			maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];
 		}
 	}
 	else{
-		j = 0;
 		maxperiod = 10000000;
 	}
 }
@@ -133,9 +121,7 @@ void send_data(int16_t *motion){
 void errorLED_command(){
 	while(1){
 		GPIO_SetBits(GPIOA,GPIO_Pin_11);
-		tdelay(500);
 		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-		tdelay(500);
 	}
 }
 
