@@ -2,8 +2,8 @@
 #include"initialsetting.h"
 
 uint32_t *RxBuff;
-uint16_t commandfull = 0b1000000110000001;//0b1000000010000000;
-uint16_t precommandfull = 0b1000000110000001;//0b1000000010000000;
+uint16_t commandfull = 0b1000000010000000;//0b1000000010000000;
+uint16_t precommandfull = 0b1000000010000000;//0b1000000010000000;
 
 void USART3_Configuration(void ){
 	NVIC_InitTypeDef NVIC_InitStructure;
@@ -92,7 +92,6 @@ void DMA1_Stream1_IRQHandler (void) {
 //	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 //}
 
-
 void USART3_IRQHandler( void){
 
 	uint16_t command = 0;
@@ -102,26 +101,9 @@ void USART3_IRQHandler( void){
 		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
 		command = ( uint8_t)USART_ReceiveData( USART3);
-		if(command & 0b0000000010000000){
-			inpcommandfull = 0;		//いらないはず
-			inpcommandfull = command<<8;
-//			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
-		}
-		else if(~command & 0b0000000010000000){
-			inpcommandfull = inpcommandfull ^ command;
-			inpcommandfull = inpcommandfull ^ 0b0000000010000000;
-			commandfull = inpcommandfull;
-			numoferror = 0;
-		}
-		else{
-			commandfull = precommandfull;
-			inpcommandfull = commandfull;
-			numoferror++;
-		}
-		if(numoferror >= 100){
-			while(1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
-			commandfull = 0b1111111111111111;	//強制停止
-		}
+		if(command == 0b10000000)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+		commandfull = 0b1000000000000000 | command;
 		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
 //		if(commandfull=0b1000001010000010)GPIO_SetBits(GPIOA,GPIO_Pin_11);
 //		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
@@ -130,6 +112,46 @@ void USART3_IRQHandler( void){
 
 
 }
+
+
+//2bitの受信を前提としたコントローラ．不要な機能っぽい
+//	void USART3_IRQHandler( void){
+//
+//		uint16_t command = 0;
+//		static uint16_t inpcommandfull;
+//		static uint8_t numoferror = 0;
+//		if( USART_GetITStatus( USART3,USART_IT_RXNE) != RESET){
+//			USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
+//			USART_ClearITPendingBit( USART3, USART_IT_RXNE);
+//			command = ( uint8_t)USART_ReceiveData( USART3);
+//			if(command & 0b0000000010000000){
+//				inpcommandfull = 0;		//いらないはず
+//				inpcommandfull = command<<8;
+//	//			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
+//			}
+//			else if(~command & 0b0000000010000000){
+//				inpcommandfull = inpcommandfull ^ command;
+//				inpcommandfull = inpcommandfull ^ 0b0000000010000000;
+//				commandfull = inpcommandfull;
+//				numoferror = 0;
+//			}
+//			else{
+//				commandfull = precommandfull;
+//				inpcommandfull = commandfull;
+//				numoferror++;
+//			}
+//			if(numoferror >= 100){
+//				while(1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//				commandfull = 0b1111111111111111;	//強制停止
+//			}
+//			USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+//	//		if(commandfull=0b1000001010000010)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//	//		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+//	//		while(1);
+//		}
+//
+//
+//	}
 
 void errorLED_composed( void){
 	while(1){
