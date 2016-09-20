@@ -1,5 +1,3 @@
-//ここが(確認)リポジトリであるかのtest
-
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 #include"make_motion.h"
@@ -7,7 +5,6 @@
 #include"usart3.h"
 
 void send_exp_USART3(void);
-extern uint8_t DMA2flag;
 extern uint16_t commandfull;
 extern uint16_t precommandfull;
 
@@ -31,13 +28,9 @@ int main(void)
     {
 //		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){;
 //		}
-//		if(DMA2flag == 1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
-//		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-//		do_motion(0b1000000010000001);
 		millis_test();
 //		send_exp_USART3();
-		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-		tdelay(100);
+		tdelay(10);
     }
 }
 
