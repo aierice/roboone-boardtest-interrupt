@@ -101,13 +101,33 @@ void USART3_IRQHandler( void){
 		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
 		command = ( uint8_t)USART_ReceiveData( USART3);
+<<<<<<< HEAD
 		if(command == 0b10000000)GPIO_SetBits(GPIOA,GPIO_Pin_11);
 		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 		commandfull = 0b1000000000000000 | command;
+=======
+		if(command & 0b0000000010000000){
+			inpcommandfull = 0;		//Ç¢ÇÁÇ»Ç¢ÇÕÇ∏
+			inpcommandfull = command<<8;
+//			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
+		}
+		else if(~command & 0b0000000010000000 || commandfull){
+			inpcommandfull = inpcommandfull ^ command;
+			inpcommandfull = inpcommandfull ^ 0b0000000010000000;
+			commandfull = inpcommandfull;
+			numoferror = 0;
+		}
+		else{
+			commandfull = precommandfull;
+			inpcommandfull = commandfull;
+			numoferror++;
+		}
+		if(numoferror >= 100){
+			while(1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
+			commandfull = 0b1111111111111111;	//ã≠êßí‚é~
+		}
+>>>>>>> parent of ec74e43... moveorwaitÂïèÈ°å„ÅÆËß£Ê±∫(Á¢∫Ë™ç)
 		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
-//		if(commandfull=0b1000001010000010)GPIO_SetBits(GPIOA,GPIO_Pin_11);
-//		else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-//		while(1);
 	}
 
 
