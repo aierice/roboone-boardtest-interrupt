@@ -26,11 +26,10 @@ int main(void)
 	tdelay(10);
 	while(1)
     {
-//		while(!GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_0)){;
-//		}
-		millis_test();
-//		send_exp_USART3();
-		tdelay(10);
+		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+		tdelay(100);
+//		millis_test();
+//		tdelay(10);
     }
 }
 
