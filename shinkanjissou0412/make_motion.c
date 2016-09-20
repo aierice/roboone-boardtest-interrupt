@@ -9,21 +9,19 @@ uint8_t sendbuf[10000];
 uint8_t numofbuf;
 extern uint32_t period;
 extern uint32_t maxperiod;
-uint8_t DMA2flag = 0;
 
 void do_motion(uint16_t commandfull){
-	DMA2flag = 1;
 	USART_Cmd(USART3,DISABLE);
 	select_motion(commandfull);
 }
 
 void select_motion(uint16_t commandfull){
 		switch(commandfull){
-		case 0b1000000010000000:
+		case 0b1000000000000001:
 			data_to_motion( (int16_t*)test_Start);
 			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 								break;
-		case 0b1000000010000001:
+		case 0b1000000000000010:
 			data_to_motion( (int16_t*)test_End);
 			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 								break;
@@ -124,7 +122,7 @@ void send_data(int16_t *motion){
 //		counter++;
 //	}
 	DMA_SetCurrDataCounter(DMA2_Stream7, numofbuf+1);
-	DMA_Cmd(DMA2_Stream7, ENABLE);
+	DMA_Cmd(DMA2_Stream7, ENABLE);	//none disable...OK?
 }
 
 void errorLED_command(){
@@ -141,7 +139,6 @@ void DMA2_Stream7_IRQHandler(void){
 	if(DMA_GetITStatus(DMA2_Stream7,DMA_IT_TCIF7)){
 //		DMA_Cmd(DMA2_Stream7, DISABLE);							// TX DMA Stop
 //		ServoCommandData.TX_RX_isRunning = 0;					// TX RX stop
-		DMA2flag = 0;
 		DMA_ClearITPendingBit(DMA2_Stream7,DMA_IT_TCIF7);		// clear interrupt flag
 //		DMA_Cmd(DMA2_Stream7, DISABLE);
 	}

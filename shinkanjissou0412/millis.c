@@ -8,7 +8,6 @@ uint32_t maxperiod = 10000000;
 
 extern uint16_t commandfull;
 extern uint16_t precommandfull;
-extern uint8_t DMA2flag;
 
 void TIM3_Configuration(void){
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -42,15 +41,15 @@ uint32_t millis(void ){
 }
 
 void millis_test(void ){
-		if(maxperiod == 10000000){
-			precommandfull = commandfull;
-			do_motion(commandfull);
-//			do_motion(0b1000000110000001);
-		}
-		else if(maxperiod <= period){
-			do_motion(precommandfull);
-//			do_motion(0b1000000110000001);
-		}
+	if(maxperiod == 10000000){
+		precommandfull = commandfull;
+		do_motion(commandfull);
+//		do_motion(0b1000000110000001);
+	}
+	else if(maxperiod <= period){
+		do_motion(precommandfull);
+//		do_motion(0b1000000110000001);
+	}
 }
 
 void TIM3_IRQHandler(void){
