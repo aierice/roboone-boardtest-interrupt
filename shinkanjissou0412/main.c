@@ -1,3 +1,5 @@
+//ここが(確認)リポジトリであるかのtest
+
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 #include"make_motion.h"
