@@ -21,15 +21,14 @@ int main(void)
 	if(SysTick_Config(SystemCoreClock / 1000)){
 		while(1);
 	}
-	GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 	do_motion(0b0111111111111111);
 	tdelay(10);
 	while(1)
     {
-		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-		tdelay(100);
-//		millis_test();
-//		tdelay(10);
+//		tdelay(100);
+		millis_test();
+		tdelay(10);
     }
 }
 

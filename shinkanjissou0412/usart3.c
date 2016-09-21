@@ -2,8 +2,8 @@
 #include"initialsetting.h"
 
 uint32_t *RxBuff;
-uint16_t commandfull = 0b1000000010000000;//0b1000000010000000;
-uint16_t precommandfull = 0b1000000010000000;//0b1000000010000000;
+uint16_t commandfull = 0b1000000000000001;//0b1000000010000000;
+uint16_t precommandfull = 0b1000000000000001;//0b1000000010000000;
 
 void USART3_Configuration(void ){
 	NVIC_InitTypeDef NVIC_InitStructure;
@@ -83,7 +83,7 @@ void USART3_Configuration(void ){
 }
 
 void DMA1_Stream1_IRQHandler (void) {
-	GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 //	if(RxBuff==1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
 //	else GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 }
@@ -101,7 +101,6 @@ void USART3_IRQHandler( void){
 		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
 		command = ( uint8_t)USART_ReceiveData( USART3);
-		if(command == 0b0000000001111111)GPIO_SetBits(GPIOA,GPIO_Pin_11);	//通信チェック用
 		if(command & 0b0000000010000000){
 			inpcommandfull = 0;		//いらないはず
 			inpcommandfull = command<<8;
