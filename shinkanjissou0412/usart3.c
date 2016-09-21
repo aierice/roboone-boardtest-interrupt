@@ -101,7 +101,7 @@ void USART3_IRQHandler( void){
 		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
 		command = ( uint8_t)USART_ReceiveData( USART3);
-		if(command == 0b0000000010000000)GPIO_SetBits(GPIOA,GPIO_Pin_11);	//通信チェック用
+		if(command == 0b0000000001111111)GPIO_SetBits(GPIOA,GPIO_Pin_11);	//通信チェック用
 		if(command & 0b0000000010000000){
 			inpcommandfull = 0;		//いらないはず
 			inpcommandfull = command<<8;
