@@ -28,6 +28,9 @@ int main(void)
     {
 //		tdelay(100);
 		millis_test();
+//		GPIO_SetBits(GPIOA,GPIO_Pin_11);
+		tdelay(10);
+//		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 		tdelay(10);
     }
 }

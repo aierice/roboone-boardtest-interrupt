@@ -8,6 +8,7 @@ uint32_t maxperiod = 10000000;
 
 extern uint16_t commandfull;
 extern uint16_t precommandfull;
+extern uint8_t motionphase;
 
 void TIM3_Configuration(void){
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -42,10 +43,39 @@ uint32_t millis(void ){
 
 void millis_test(void ){
 	if(maxperiod == 10000000){
-		precommandfull = commandfull;
-		do_motion(commandfull);
+		switch(motionphase){
+			case 0:
+				precommandfull = commandfull;
+				break;
+			case 1:
+				precommandfull = precommandfull | 0b0000000000010000;
+				motionphase++;
+				break;
+			case 2:
+				if((precommandfull&0b1111111111101111) == commandfull){
+					precommandfull = precommandfull;
+				}
+				else{
+					precommandfull = precommandfull | 0b0000000000100000;
+					precommandfull = precommandfull & 0b1111111111101111;
+					motionphase++;
+				}
+				break;
+			case 3:
+				precommandfull = commandfull;
+				motionphase = 0;
+				break;
+			default://GPIO_SetBits(GPIOA,GPIO_Pin_11);
+				break;
+		}
+		do_motion(precommandfull);
 //		do_motion(0b1000000110000001);
 	}
+/*	if(maxperiod == 10000000){
+		precommandfull = commandfull;
+		do_motion(precommandfull);
+	}
+*/
 	else if(maxperiod <= period){
 		do_motion(precommandfull);
 //		do_motion(0b1000000110000001);

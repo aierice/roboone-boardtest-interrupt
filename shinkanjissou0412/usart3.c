@@ -2,8 +2,8 @@
 #include"initialsetting.h"
 
 uint32_t *RxBuff;
-uint16_t commandfull = 0b1000000000000001;//0b1000000010000000;
-uint16_t precommandfull = 0b1000000000000001;//0b1000000010000000;
+uint16_t commandfull = 0b1000000000000000;//0b1000000010000000;
+uint16_t precommandfull = 0b1000000000000000;//0b1000000010000000;
 
 void USART3_Configuration(void ){
 	NVIC_InitTypeDef NVIC_InitStructure;
@@ -97,6 +97,7 @@ void USART3_IRQHandler( void){
 	uint16_t command = 0;
 	static uint16_t inpcommandfull;
 	static uint8_t numoferror = 0;
+	static uint8_t RXorder = 0;
 	if( USART_GetITStatus( USART3,USART_IT_RXNE) != RESET){
 		USART_ITConfig(USART3, USART_IT_RXNE, DISABLE);
 		USART_ClearITPendingBit( USART3, USART_IT_RXNE);
@@ -105,17 +106,20 @@ void USART3_IRQHandler( void){
 			inpcommandfull = 0;		//‚¢‚ç‚È‚¢‚Í‚¸
 			inpcommandfull = command<<8;
 //			GPIO_ResetBits( GPIOA,GPIO_Pin_11);
+			RXorder = 1;
 		}
-		else if(~command & 0b0000000010000000 || commandfull){
+		else if(((~command) & 0b0000000010000000) && RXorder){
 			inpcommandfull = inpcommandfull ^ command;
 //			inpcommandfull = inpcommandfull ^ 0b0000000010000000;
 			commandfull = inpcommandfull;
 			numoferror = 0;
+			RXorder = 0;
 		}
 		else{
 			commandfull = precommandfull;
 			inpcommandfull = commandfull;
 			numoferror++;
+			RXorder = 0;
 		}
 		if(numoferror >= 100){
 			while(1)GPIO_SetBits(GPIOA,GPIO_Pin_11);

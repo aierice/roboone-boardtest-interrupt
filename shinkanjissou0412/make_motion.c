@@ -2,11 +2,23 @@
 #include "make_motion.h"
 #include "initialsetting.h"
 
-extern int16_t test_Start[3][15];
-extern int16_t test_End[4][15];
+extern int16_t test_Start[3][3];
+extern int16_t test_End[3][3];
+extern int16_t test_Test[3][3];
+extern int16_t templete[4][21];
+extern int16_t Walk_behind_Loop[8][21];
+extern int16_t Walk_behind_End[5][21];
+extern int16_t Walk_front_Start[3][21];
+extern int16_t Walk_front_Loop[10][21];
+extern int16_t Walk_front_End[4][21];
+extern int16_t Walk_left_Loop[6][21];
+extern int16_t Walk_left_End[5][21];
+extern int16_t Walk_right_Loop[6][21];
+extern int16_t Walk_right_End[5][21];
 
 uint8_t sendbuf[10000];
 uint8_t numofbuf;
+uint8_t motionphase = 0;
 extern uint32_t period;
 extern uint32_t maxperiod;
 
@@ -16,17 +28,55 @@ void do_motion(uint16_t commandfull){
 }
 
 void select_motion(uint16_t commandfull){
+	//0b abcd efgh ijkl mnop
+	//abcd upper
+	//l Loop
+	//k End
+	//***when Start is nothing(but exist Loop), l = 0
 		switch(commandfull){
-		case 0b1000000000000001:
-			data_to_motion( (int16_t*)test_Start);
-			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+		case 0b1000000000000000:
+			motionphase = 0;
+			data_to_motion( (int16_t*)templete);
+								break;
+		case 0b1000000000000011:
+			motionphase = 1;
+			data_to_motion( (int16_t*)Walk_front_Start);
+								break;
+		case 0b1000000000010011:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_front_Loop);
+								break;
+		case 0b1000000000100011:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_front_End);
 								break;
 		case 0b1000000000000010:
-			data_to_motion( (int16_t*)test_End);
-			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_behind_Loop);
+								break;
+		case 0b1000000000100010:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_behind_End);
+								break;
+		case 0b1000000000000100:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_left_Loop);
+								break;
+		case 0b1000000000100100:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_left_End);
+								break;
+		case 0b1000000000001000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_right_Loop);
+								break;
+		case 0b1000000000101000:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_right_End);
 								break;
 		case 0b0111111111111111:
-			torque_on( (int16_t*)test_Start);
+			motionphase = 0;
+			torque_on( (int16_t*)templete);
 								break;
 		default:				errorLED_command();
 	}
@@ -127,7 +177,7 @@ void send_data(int16_t *motion){
 
 void errorLED_command(){
 //	while(1){
-		GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 //		tdelay(100);
 //		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 //		tdelay(900);
