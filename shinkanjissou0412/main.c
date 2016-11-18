@@ -23,6 +23,7 @@ int main(void)
 	}
 //	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 	do_motion(0b0111111111111111);
+	do_motion(0b1000100100000000);
 	tdelay(10);
 	while(1)
     {
