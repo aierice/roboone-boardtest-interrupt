@@ -49,7 +49,6 @@ void millis_test(void ){
 				break;
 			case 1:
 				precommandfull = precommandfull | 0b0000000000010000;
-				motionphase++;
 				break;
 			case 2:
 				if((precommandfull&0b1111111111101111) == commandfull){
@@ -58,12 +57,10 @@ void millis_test(void ){
 				else{
 					precommandfull = precommandfull | 0b0000000000100000;
 					precommandfull = precommandfull & 0b1111111111101111;
-					motionphase++;
 				}
 				break;
 			case 3:
 				precommandfull = commandfull;
-				motionphase = 0;
 				break;
 			default://GPIO_SetBits(GPIOA,GPIO_Pin_11);
 				break;

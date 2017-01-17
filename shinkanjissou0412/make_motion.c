@@ -41,7 +41,7 @@ void select_motion(uint16_t commandfull){
 	//abcd upper
 	//l Loop
 	//k End
-	//***when Start is nothing(but exist Loop), l = 0
+	//***when Start is nothing(but exist Loop), l = 1
 		switch(commandfull){
 		case 0b1000000000000000:
 			motionphase = 0;
@@ -230,23 +230,11 @@ void data_to_motion( int16_t *motion){
 }
 
 void send_data(int16_t *motion){
-//	uint8_t counter = 0;
-//	while( numofbuf >= counter){
-//		while( USART_GetFlagStatus( USART1,USART_FLAG_TXE)==RESET);
-//		USART_SendData( USART1,sendbuf[counter]);
-//		counter++;
-//	}
 	DMA_SetCurrDataCounter(DMA2_Stream7, numofbuf+1);
 	DMA_Cmd(DMA2_Stream7, ENABLE);	//none disable...OK?
 }
 
 void errorLED_command(){
-//	while(1){
-//		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-//		tdelay(100);
-//		GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-//		tdelay(900);
-//	}
 }
 
 /*もしかするといらない*/

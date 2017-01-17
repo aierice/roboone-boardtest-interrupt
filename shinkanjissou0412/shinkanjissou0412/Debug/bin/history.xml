@@ -1,24 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -g -nostartfiles -Map=shinkanjissou0412.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\shinkanjissou0412 -TC:\CooCox\CoIDE\configuration\ProgramData\shinkanjissou0412/arm-gcc-link.ld -g">
-      <target file="shinkanjissou0412.elf" lastModified="157a1d4d31d">
-         <source file="..\obj\test_motion.o" lastModified="157a1d49f99"/>
-         <source file="..\obj\stm32f4xx_usart.o" lastModified="157a1d4acd0"/>
-         <source file="..\obj\startup_stm32f4xx.o" lastModified="157a1d4b971"/>
-         <source file="..\obj\initialsetting.o" lastModified="157a1d4c052"/>
-         <source file="..\obj\main.o" lastModified="157a1d4c160"/>
-         <source file="..\obj\make_motion.o" lastModified="157a1d4c2ac"/>
-         <source file="..\obj\stm32f4xx_rcc.o" lastModified="157a1d4c40d"/>
-         <source file="..\obj\millis.o" lastModified="157a1d4c525"/>
-         <source file="..\obj\test.o" lastModified="157a1d4c621"/>
-         <source file="..\obj\stm32f4xx_gpio.o" lastModified="157a1d4c783"/>
-         <source file="..\obj\system_stm32f4xx.o" lastModified="157a1d4c8b0"/>
-         <source file="..\obj\stm32f4xx_dma.o" lastModified="157a1d4c9fc"/>
-         <source file="..\obj\usart3.o" lastModified="157a1d4cb7c"/>
-         <source file="..\obj\stm32f4xx_exti.o" lastModified="157a1d4cc99"/>
-         <source file="..\obj\misc.o" lastModified="157a1d4cdb0"/>
-         <source file="..\obj\stm32f4xx_tim.o" lastModified="157a1d4cf21"/>
-         <source file="..\obj\usart_handler.o" lastModified="157a1d4d04e"/>
       </target>
    </processor>
 </history>
