@@ -41,6 +41,22 @@ uint32_t millis(void ){
 	return period;
 }
 
+uint8_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
+	uint8_t myreturn = 0;
+	switch(precommandfull){
+		case 0b1000000000011111:{
+			uint16_t p[3]={0b1000000000011110,0b1000000000011101,0b1000000000011011};
+			uint8_t i;
+			for(i = 0;i < 3;i++)myreturn+=(nowcommandfull==p[i]);
+			}
+			break;
+		default:
+			myreturn = 0;
+			break;
+	}
+	return myreturn;
+}
+
 void millis_test(void ){
 	if(maxperiod == 10000000){
 		switch(motionphase){
@@ -55,12 +71,21 @@ void millis_test(void ){
 					precommandfull = precommandfull;
 				}
 				else{
-					precommandfull = precommandfull | 0b0000000000100000;
-					precommandfull = precommandfull & 0b1111111111101111;
+					uint16_t nowcommandfull = commandfull;
+					if(migration_checker(precommandfull,nowcommandfull)){
+						precommandfull = nowcommandfull | 0b0000000000110000;
+					}
+					else{
+						precommandfull = precommandfull | 0b0000000000100000;
+						precommandfull = precommandfull & 0b1111111111101111;
+					}
 				}
 				break;
 			case 3:
 				precommandfull = commandfull;
+				break;
+			case 4:
+				precommandfull = precommandfull | 0b0000000000010000;
 				break;
 			default://GPIO_SetBits(GPIOA,GPIO_Pin_11);
 				break;
