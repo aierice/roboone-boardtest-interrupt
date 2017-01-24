@@ -54,6 +54,7 @@ void select_motion(uint16_t commandfull){
 		case 0b1000000100000000:
 			motionphase = 0;
 			torque_off( (int16_t*)Templete);
+								break;
 		case 0b1000000000000001:
 			motionphase = 1;
 			data_to_motion( (int16_t*)Walk_front_Start);
