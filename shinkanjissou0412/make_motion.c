@@ -63,6 +63,10 @@ void select_motion(uint16_t commandfull){
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_left_End);
 								break;
+		case adr_Walk_left^0b0000000000110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_left_Loop_from_front);
+								break;
 		case adr_Walk_right:
 		case adr_Walk_right^0b0000000000010000:
 			motionphase = 2;
@@ -71,6 +75,10 @@ void select_motion(uint16_t commandfull){
 		case adr_Walk_right^0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_right_End);
+								break;
+		case adr_Walk_right^0b0000000000110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_right_Loop_from_front);
 								break;
 		case adr_Atk_left:
 			motionphase = 0;
