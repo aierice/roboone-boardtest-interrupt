@@ -1,6 +1,7 @@
 #include"stm32f4xx.h"
 #include"initialsetting.h"
 
+uint32_t timingdelay;
 extern uint8_t sendbuf[10000];
 
 void NVIC_Configuration( void){
