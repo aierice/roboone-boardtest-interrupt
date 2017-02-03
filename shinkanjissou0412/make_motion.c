@@ -185,42 +185,58 @@ void data_to_motion( int16_t *motion){
 	int8_t checksum = 0;
 	if(motionorder < 1+motion[0]){
 		if(moveorwait == 0){
-			for( i = 0; i < motion[1]; i++){	//移動
-				sendbuf[ 7+i*5] = ( int8_t) motion[i+2];	//IDの指定
-				sendbuf[ 8+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4])& 0xFF);	//位置
-				sendbuf[ 9+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4]) >>8);
-				sendbuf[10+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])] &0xFF);
-				sendbuf[11+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])] >>8);	//時間
+			if(motion[(motionorder+1)*( 2+motion[1])] == 0){
+				numofbuf = 7+5* motion[1];
+				moveorwait = 1;
+				period = 0;
+				maxperiod = 0;
 			}
-			checksum = 0;
-			for( i = 2; i <= 6+5*motion[1]; i++){
+			else{
+				for( i = 0; i < motion[1]; i++){	//移動
+					sendbuf[ 7+i*5] = ( int8_t) motion[i+2];	//IDの指定
+					sendbuf[ 8+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4])& 0xFF);	//位置
+					sendbuf[ 9+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4]) >>8);
+					sendbuf[10+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])] &0xFF);
+					sendbuf[11+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])] >>8);	//時間
+				}
+				checksum = 0;
+				for( i = 2; i <= 6+5*motion[1]; i++){
 					checksum = checksum ^ sendbuf[i];
-			}
-			sendbuf[ 7+5*motion[1]] = ( int8_t)checksum;
-			numofbuf = 7+5* motion[1];
-			send_data( (int16_t*)motion);
-			moveorwait = 1;
-			period = 0;
-			maxperiod = 10*motion[ ( motionorder+1)*( 2+motion[1])];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];
+				}
+				sendbuf[ 7+5*motion[1]] = ( int8_t)checksum;
+				numofbuf = 7+5* motion[1];
+				send_data( (int16_t*)motion);
+				moveorwait = 1;
+				period = 0;
+				maxperiod = 10*motion[ ( motionorder+1)*( 2+motion[1])];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])];
+				}
 		}
 		else{
-			for(i = 0; i < motion[1]; i++){	//待機
-				sendbuf[ 7+i*5] = ( int8_t) motion[i+2];	//IDの指定
-				sendbuf[ 8+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4]) &0xFF);	//位置
-				sendbuf[ 9+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4]) >>8);
-				sendbuf[10+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])+1] &0xFF);
-				sendbuf[11+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])+1] >>8);	//時間
+			if(motion[(motionorder+1)*( 2+motion[1])+1] == 0){
+				numofbuf = 7+5* motion[1];
+				moveorwait = 0;
+				period = 0;
+				maxperiod = 0;
 			}
-			checksum = 0;
-			for( i = 2; i <= 6+5*motion[1]; i++){
-				checksum = checksum ^ sendbuf[i];
+			else{
+				for(i = 0; i < motion[1]; i++){	//待機
+					sendbuf[ 7+i*5] = ( int8_t) motion[i+2];	//IDの指定
+					sendbuf[ 8+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4]) &0xFF);	//位置
+					sendbuf[ 9+i*5] = ( int8_t) ((( int16_t)motion[(motionorder+1)*( 2+motion[1])+(i+2)]+( int16_t)motion[motion[1]+i+4]) >>8);
+					sendbuf[10+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])+1] &0xFF);
+					sendbuf[11+i*5] = ( int8_t) (( int16_t)motion[(motionorder+1)*( 2+motion[1])+1] >>8);	//時間
+				}
+				checksum = 0;
+				for( i = 2; i <= 6+5*motion[1]; i++){
+					checksum = checksum ^ sendbuf[i];
+				}
+				sendbuf[ 7+5*motion[1]] = ( int8_t)checksum;
+				numofbuf = 7+5*motion[1];
+				send_data( (int16_t*)motion);
+				moveorwait = 0;
+				period = 0;
+				maxperiod = 10*motion[ ( motionorder+1)*( 2+motion[1])+1];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];
 			}
-			sendbuf[ 7+5*motion[1]] = ( int8_t)checksum;
-			numofbuf = 7+5*motion[1];
-			send_data( (int16_t*)motion);
-			moveorwait = 0;
-			period = 0;
-			maxperiod = 10*motion[ ( motionorder+1)*( 2+motion[1])+1];		//maxperiod = 10*motion[ ( j+1)*( 2+motion[1])+1];
 			motionorder++;
 		}
 	}
