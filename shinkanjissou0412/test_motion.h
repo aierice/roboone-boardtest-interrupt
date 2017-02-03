@@ -1,0 +1,23 @@
+#include "stm32f4xx.h"
+extern int16_t test_Start[3][3];
+extern int16_t test_End[3][3];
+extern int16_t test_Test[3][3];
+extern int16_t Templete[3][21];
+extern int16_t Walk_behind_Loop[8][21];
+extern int16_t Walk_behind_End[5][21];
+extern int16_t Walk_front_Start[3][21];
+extern int16_t Walk_front_Loop[10][21];
+extern int16_t Walk_front_End[4][21];
+extern int16_t Walk_left_Loop[6][21];
+extern int16_t Walk_left_End[5][21];
+extern int16_t Walk_right_Loop[6][21];
+extern int16_t Walk_right_End[5][21];
+extern int16_t Atk_left[8][21];
+extern int16_t Atk_right[8][21];
+extern int16_t Stand_front[9][21];
+extern int16_t Stand_behind[8][21];
+extern int16_t Neutral[3][21];
+extern int16_t Banzai[6][21];
+extern int16_t Tehuri[4][21];
+extern int16_t Templete[3][21];
+extern int16_t Neutral[3][21];

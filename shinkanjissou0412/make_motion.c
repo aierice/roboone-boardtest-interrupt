@@ -1,29 +1,7 @@
 ﻿#include "stm32f4xx.h"
 #include "make_motion.h"
 #include "initialsetting.h"
-
-extern int16_t test_Start[3][3];
-extern int16_t test_End[3][3];
-extern int16_t test_Test[3][3];
-extern int16_t Templete[3][21];
-extern int16_t Walk_behind_Loop[8][21];
-extern int16_t Walk_behind_End[5][21];
-extern int16_t Walk_front_Start[3][21];
-extern int16_t Walk_front_Loop[10][21];
-extern int16_t Walk_front_End[4][21];
-extern int16_t Walk_left_Loop[6][21];
-extern int16_t Walk_left_End[5][21];
-extern int16_t Walk_right_Loop[6][21];
-extern int16_t Walk_right_End[5][21];
-extern int16_t Atk_left[8][21];
-extern int16_t Atk_right[8][21];
-extern int16_t Stand_front[9][21];
-extern int16_t Stand_behind[8][21];
-extern int16_t Neutral[3][21];
-extern int16_t Banzai[6][21];
-extern int16_t Tehuri[4][21];
-extern int16_t Templete[3][21];
-extern int16_t Neutral[3][21];
+#include "motion_define.h"
 
 uint8_t sendbuf[10000];
 uint8_t numofbuf;
@@ -43,84 +21,80 @@ void select_motion(uint16_t commandfull){
 	//k End
 	//***when Start is nothing(but exist Loop), l = 1
 		switch(commandfull){
-		case 0b1000000000000000:
+		case adr_Neutral:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Neutral);
 								break;
-		case 0b1000100000000000:
+		case adr_torque_on:
 			motionphase = 0;
 			torque_on( (int16_t*)Templete);
 								break;
-		case 0b1000000100000000:
+		case adr_torque_off:
 			motionphase = 0;
 			torque_off( (int16_t*)Templete);
 								break;
-		case 0b1000000000000001:
+		case adr_Walk_front:
 			motionphase = 1;
 			data_to_motion( (int16_t*)Walk_front_Start);
 								break;
-		case 0b1000000000010001:
+		case adr_Walk_front^0b0000000000010000:
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_front_Loop);
 								break;
-		case 0b1000000000100001:
+		case adr_Walk_front^0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_front_End);
 								break;
-		case 0b1000000000000010:
+		case adr_Walk_behind:
+		case adr_Walk_behind^0b0000000000010000:	//実際には不要っぽいが，可読性のため
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_behind_Loop);
 								break;
-		case 0b1000000000100010:
+		case adr_Walk_behind^0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_behind_End);
 								break;
-		case 0b1000000000000100:
+		case adr_Walk_left:
+		case adr_Walk_left^0b0000000000010000:
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_left_Loop);
 								break;
-		case 0b1000000000100100:
+		case adr_Walk_left^0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_left_End);
 								break;
-		case 0b1000000000001000:
+		case adr_Walk_right:
+		case adr_Walk_right^0b0000000000010000:
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_right_Loop);
 								break;
-		case 0b1000000000101000:
+		case adr_Walk_right^0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_right_End);
 								break;
-		case 0b1000001000001000:
+		case adr_Atk_left:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Atk_left);
 								break;
-		case 0b1000001000000100:
+		case adr_Atk_right:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Atk_right);
 								break;
-		case 0b1000001000000001:
+		case adr_Stand_front:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Stand_front);
 								break;
-		case 0b1000001000000010:
+		case adr_Stand_behind:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Stand_behind);
 								break;
-		case 0b1000000000000011:
+		case adr_Banzai:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Banzai);
 								break;
-		case 0b1000000000001100:
+		case adr_Tehuri:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Tehuri);
-								break;
-		case 0b1000100100000000:
-			motionphase = 0;
-			data_to_motion( (int16_t*)Templete);
-		case 0b0111111111111111:
-			motionphase = 0;
-			torque_on( (int16_t*)Templete);
 								break;
 		default:				errorLED_command();
 	}
