@@ -58,14 +58,23 @@ uint8_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 					myreturn = precommandfull^0b0000000000100000;
 					break;
 			}
-//			uint16_t p[2]={adr_Walk_left,adr_Walk_right};
-//			uint8_t i;
-//			for(i = 0;i < 2;i++)myreturn+=(nowcommandfull==p[i]);
+		}
+		break;
+		case adr_test:
+		case adr_test^0b00000000000010000:{
+			switch(nowcommandfull){
+				case adr_test2:
+					myreturn = adr_test2^0b0000000000110000;
+					break;
+				default:
+					myreturn = precommandfull^0b0000000000100000;
+					break;
 			}
-			break;
+		}
+		break;
 		default:
 			myreturn = precommandfull^0b0000000000100000;
-			break;
+		break;
 	}
 	return myreturn;
 }

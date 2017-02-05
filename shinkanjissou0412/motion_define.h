@@ -3,6 +3,7 @@
 #ifndef MOTION_DEFINE_H_
 #define MOTION_DEFINE_H_
 #define adr_test	0b1100000000000000
+#define adr_test2	0b1110000000000000
 #define adr_Neutral	0b1000000000000000
 #define adr_torque_on	0b1000100000000000
 #define adr_torque_off	0b1000000100000000
@@ -18,8 +19,10 @@
 #define adr_Tehuri	0b1000000000001100
 
 extern int16_t test_Start[3][3];
+extern int16_t test_Loop[3][3];
 extern int16_t test_End[3][3];
-extern int16_t test_Test[3][3];
+extern int16_t test2_from_test[3][3];
+extern int16_t test2[3][3];
 extern int16_t Neutral[3][21];
 extern int16_t Templete[3][21];
 extern int16_t Walk_front_Start[3][21];

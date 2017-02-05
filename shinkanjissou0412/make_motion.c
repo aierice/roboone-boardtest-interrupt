@@ -104,6 +104,27 @@ void select_motion(uint16_t commandfull){
 			motionphase = 0;
 			data_to_motion( (int16_t*)Tehuri);
 								break;
+		case adr_test:
+			motionphase = 1;
+			data_to_motion( (int16_t*)test_Start);
+								break;
+		case adr_test^0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)test_Loop);
+										break;
+		case adr_test^0b0000000000100000:
+			motionphase = 3;
+			data_to_motion( (int16_t*)test_End);
+										break;
+		case adr_test2:
+		case adr_test2^0b0000000000010000:
+			motionphase = 0;
+			data_to_motion( (int16_t*)test2);
+										break;
+		case adr_test2^0b0000000000110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)test2_from_test);
+										break;
 		default:				errorLED_command();
 	}
 	USART_Cmd(USART3,ENABLE);
