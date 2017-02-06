@@ -2,12 +2,12 @@
 
 #ifndef MOTION_DEFINE_H_
 #define MOTION_DEFINE_H_
-#define adr_test	0b1100000000000000
-#define adr_test2	0b1110000000000000
+#define adr_test	0b1000000000000001
+#define adr_test2	0b1000000000000011
 #define adr_Neutral	0b1000000000000000
 #define adr_torque_on	0b1000100000000000
 #define adr_torque_off	0b1000000100000000
-#define adr_Walk_front	0b1000000000000001
+#define adr_Walk_front	0b1000000000000111	//âºïœçX
 #define adr_Walk_behind	0b1000000000000010
 #define adr_Walk_left	0b1000000000000100
 #define adr_Walk_right	0b1000000000001000
@@ -15,7 +15,7 @@
 #define adr_Atk_right	0b1000001000000100
 #define adr_Stand_front	0b1000001000000001
 #define adr_Stand_behind	0b1000001000000010
-#define adr_Banzai	0b1000000000000011
+#define adr_Banzai	0b1000000000001111
 #define adr_Tehuri	0b1000000000001100
 
 extern int16_t test_Start[3][3];
