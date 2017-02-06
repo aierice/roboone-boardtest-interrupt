@@ -5,9 +5,6 @@
 #include"usart3.h"
 
 void send_exp_USART3(void);
-extern uint16_t commandfull;
-extern uint16_t precommandfull;
-
 
 int main(void)
 {
@@ -22,7 +19,7 @@ int main(void)
 		while(1);
 	}
 //	GPIO_SetBits(GPIOA,GPIO_Pin_11);
-	do_motion(0b0111111111111111);
+//	do_motion(0b0111111111111111);
 	do_motion(0b1000100100000000);
 	tdelay(10);
 	while(1)

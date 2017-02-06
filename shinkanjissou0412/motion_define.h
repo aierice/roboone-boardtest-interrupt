@@ -5,7 +5,7 @@
 #define adr_test	0b1000000000000001
 #define adr_test2	0b1000000000000011
 #define adr_Neutral	0b1000000000000000
-#define adr_torque_on	0b1000100000000000
+#define adr_torque_on	0b1000100100000000
 #define adr_torque_off	0b1000000100000000
 #define adr_Walk_front	0b1000000000000111	//‰¼•ÏX
 #define adr_Walk_behind	0b1000000000000010

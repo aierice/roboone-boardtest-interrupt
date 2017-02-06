@@ -7,10 +7,6 @@
 uint32_t period = 0;
 uint32_t maxperiod = 10000000;
 
-extern uint16_t commandfull;
-extern uint16_t precommandfull;
-extern uint8_t motionphase;
-
 void TIM3_Configuration(void){
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 
@@ -42,70 +38,80 @@ uint32_t millis(void ){
 	return period;
 }
 
-uint8_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
-	int16_t myreturn = 0;
+uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
+	uint16_t ret = 0;
 	switch(precommandfull){
 		case adr_Walk_front:		//é¿ç€ÇÕÇ±ÇÍÇÕÇ†ÇËÇ¶Ç»Ç¢Ç™ÅCâ¬ì«ê´ÇÃÇΩÇﬂ
-		case adr_Walk_front^0b0000000000010000:{
+		case adr_Walk_front|0b0000000000010000:{
 			switch(nowcommandfull){
 				case adr_Walk_left:
-					myreturn = adr_Walk_left^0b0000000000110000;
+					ret = adr_Walk_left|0b0000000000110000;
 					break;
 				case adr_Walk_right:
-					myreturn = adr_Walk_right^0b0000000000110000;
+					ret = adr_Walk_right|0b0000000000110000;
 					break;
 				default:
-					myreturn = precommandfull^0b0000000000100000;
+					ret = precommandfull|0b0000000000100000;
 					break;
 			}
 		}
 		break;
 		case adr_test:
-		case adr_test^0b00000000000010000:{
+		case adr_test|0b00000000000010000:
 			switch(nowcommandfull){
 				case adr_test2:
-					myreturn = adr_test2^0b0000000000110000;
+					ret = adr_test2|0b0000000000110000;
 					break;
 				default:
-					myreturn = precommandfull^0b0000000000100000;
+					ret = precommandfull|0b000000000100000;
+					ret = ret&0b1111111111101111;
+//					ret = (0x8021);
 					break;
 			}
-		}
 		break;
 		default:
-			myreturn = precommandfull^0b0000000000100000;
+			ret = precommandfull|0b0000000000100000;
 		break;
 	}
-	return myreturn;
+//	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+	return ret;
 }
 
 void millis_test(void ){
+	uint16_t myreturn;
 	if(maxperiod == 10000000){
 		switch(motionphase){
 			case 0:
-				precommandfull = commandfull;
+				myreturn = commandfull;
 				break;
 			case 1:
-				precommandfull = precommandfull | 0b0000000000010000;
+				myreturn = precommandfull | 0b0000000000010000;
 				break;
 			case 2:
 				if((precommandfull&0b1111111111101111) == commandfull){
-					precommandfull = precommandfull;
+					myreturn = precommandfull;
 				}
 				else{
-					precommandfull = migration_checker(precommandfull,commandfull);
+					myreturn = migration_checker(precommandfull,commandfull);
+					if(myreturn==(0x8021)){
+								GPIO_SetBits(GPIOA,GPIO_Pin_11);
+								tdelay(100);
+								GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+								tdelay(100);
+					}
 				}
 				break;
 			case 3:
-				precommandfull = commandfull;
+				myreturn = commandfull;
 				break;
 			case 4:
-				precommandfull = precommandfull | 0b0000000000010000;
+				myreturn = precommandfull | 0b0000000000010000;
 				break;
 			default://GPIO_SetBits(GPIOA,GPIO_Pin_11);
 				break;
 		}
-		do_motion(precommandfull);
+		precommandfull = myreturn;
+		do_motion(myreturn);
 //		do_motion(0b1000000110000001);
 	}
 /*	if(maxperiod == 10000000){
