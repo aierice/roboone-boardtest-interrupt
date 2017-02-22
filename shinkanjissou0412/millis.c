@@ -45,17 +45,51 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 		case adr_Walk_front|0b0000000000010000:{
 			switch(nowcommandfull){
 				case adr_Walk_left:
+				case adr_Walk_left_front:
 					ret = adr_Walk_left|0b0000000000110000;
 					break;
 				case adr_Walk_right:
+				case adr_Walk_right_front:
 					ret = adr_Walk_right|0b0000000000110000;
+						break;
+				case adr_Atk_3:
+					ret = adr_Atk_3|0b0000000000110000;
 					break;
 				default:
-					ret = precommandfull|0b0000000000100000;
+					ret = precommandfull|0b000000000100000;
+					ret = ret&0b1111111111101111;
 					break;
 			}
 		}
 		break;
+		case adr_Walk_left:
+		case adr_Walk_left|0b00000000000010000:
+			switch(nowcommandfull){
+				case adr_Walk_front:
+				case adr_Walk_left_front:
+					ret = adr_Walk_front|0b0000000000110000;
+					break;
+				default:
+					ret = precommandfull|0b000000000100000;
+					ret = ret&0b1111111111101111;
+					break;
+			}
+		break;
+		case adr_Walk_right:
+		case adr_Walk_right|0b00000000000010000:
+			switch(nowcommandfull){
+				case adr_Walk_front:
+				case adr_Walk_right_front:
+					ret = adr_Walk_front|0b0000000001110000;
+					break;
+				default:
+					ret = precommandfull|0b000000000100000;
+					ret = ret&0b1111111111101111;
+					break;
+			}
+		break;
+
+
 		case adr_test:
 		case adr_test|0b00000000000010000:
 			switch(nowcommandfull){
@@ -93,19 +127,20 @@ void millis_test(void ){
 				}
 				else{
 					myreturn = migration_checker(precommandfull,commandfull);
-					if(myreturn==(0x8021)){
-								GPIO_SetBits(GPIOA,GPIO_Pin_11);
-								tdelay(100);
-								GPIO_ResetBits(GPIOA,GPIO_Pin_11);
-								tdelay(100);
-					}
+//					if(myreturn==(0x8021)){
+//								GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//								tdelay(100);
+//								GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+//								tdelay(100);
+//					}
 				}
 				break;
 			case 3:
 				myreturn = commandfull;
 				break;
 			case 4:
-				myreturn = precommandfull | 0b0000000000010000;
+				myreturn = precommandfull & 0b1111111100001111;
+				myreturn = myreturn|0b0000000000010000;
 				break;
 			default://GPIO_SetBits(GPIOA,GPIO_Pin_11);
 				break;

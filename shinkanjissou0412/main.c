@@ -3,6 +3,7 @@
 #include"make_motion.h"
 #include"millis.h"
 #include"usart3.h"
+#include"motion_define.h"
 
 void send_exp_USART3(void);
 
@@ -18,14 +19,14 @@ int main(void)
 	if(SysTick_Config(SystemCoreClock / 1000)){
 		while(1);
 	}
-//	GPIO_SetBits(GPIOA,GPIO_Pin_11);
 //	do_motion(0b0111111111111111);
-	do_motion(0b1000100100000000);
+	do_motion(adr_torque_on);
+	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 	tdelay(10);
 	while(1)
-    {
+	{
 		millis_test();
-		tdelay(10);
+//		tdelay(10);
     }
 }
 

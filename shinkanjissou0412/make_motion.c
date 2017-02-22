@@ -2,6 +2,7 @@
 #include "make_motion.h"
 #include "initialsetting.h"
 #include "motion_define.h"
+#include "usart3.h"
 
 uint8_t sendbuf[10000];
 uint8_t numofbuf;
@@ -10,7 +11,7 @@ extern uint32_t period;
 extern uint32_t maxperiod;
 
 void do_motion(uint16_t commandfull){
-	USART_Cmd(USART3,DISABLE);
+//	USART_Cmd(USART3,DISABLE);
 	select_motion(commandfull);
 }
 
@@ -22,16 +23,20 @@ void select_motion(uint16_t commandfull){
 	//***when Start is nothing(but exist Loop), l = 1
 		switch(commandfull){
 		case adr_Neutral:
+			GPIO_SetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
 			data_to_motion( (int16_t*)Neutral);
 								break;
 		case adr_torque_on:
+			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
-			torque_on( (int16_t*)Templete);
+			torque_on( (int16_t*)Neutral);
 								break;
 		case adr_torque_off:
+			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
-			torque_off( (int16_t*)Templete);
+			torque_off( (int16_t*)Walk_front_Start);
+//			tdelay(1000);
 								break;
 		case adr_Walk_front:
 			motionphase = 1;
@@ -45,7 +50,49 @@ void select_motion(uint16_t commandfull){
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_front_End);
 								break;
-		case adr_Walk_behind:
+		case adr_Walk_front|0b0000000000110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_front_from_left);
+								break;
+		case adr_Walk_front|0b0000000001110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_front_from_right);
+								break;
+		case adr_Walk_left:
+		case adr_Walk_left|0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_left_Loop);
+								break;
+		case adr_Walk_left|0b0000000000100000:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_left_End);
+								break;
+		case adr_Walk_left|0b0000000000110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_left_from_front);
+								break;
+		case adr_Walk_right:
+		case adr_Walk_right|0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_right_Loop);
+								break;
+		case adr_Walk_right|0b0000000000100000:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_right_End);
+								break;
+		case adr_Walk_right|0b0000000000110000:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_right_from_front);
+								break;
+		case adr_Atk_3:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Atk_3);
+								break;
+		case adr_Atk_3|0b0000000000110000:
+					motionphase = 0;
+					data_to_motion( (int16_t*)Atk_3_from_front);
+								break;
+/*		case adr_Walk_behind:
 		case adr_Walk_behind|0b0000000000010000:	//実際には不要っぽいが，可読性のため
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_behind_Loop);
@@ -111,24 +158,29 @@ void select_motion(uint16_t commandfull){
 		case adr_test|0b0000000000010000:
 			motionphase = 2;
 			data_to_motion( (int16_t*)test_Loop);
-										break;
+								break;
 		case adr_test|0b0000000000100000:
-			GPIO_SetBits(GPIOA,GPIO_Pin_11);
+//			GPIO_SetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 3;
 			data_to_motion( (int16_t*)test_End);
-										break;
+								break;
 		case adr_test2:
 		case adr_test2|0b0000000000010000:
 			motionphase = 0;
 			data_to_motion( (int16_t*)test2);
-										break;
+								break;
 		case adr_test2|0b0000000000110000:
 			motionphase = 4;
 			data_to_motion( (int16_t*)test2_from_test);
-										break;
-		default:				errorLED_command();
+								break;
+*/
+		default:
+//			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
+			motionphase = 0;
+			data_to_motion( (int16_t*)Neutral);
+								break;
 	}
-	USART_Cmd(USART3,ENABLE);
+//	USART_Cmd(USART3,ENABLE);
 }
 
 void torque_on( int16_t *motion){	//motion[i]*2を2*motion[i]に変え、uint8_tをint8_tにしたら動いた。//と思ったら動いていない//動いた。test_motionでIDが小さい方からすべて使われることが前提になっているので、注意
@@ -151,6 +203,9 @@ void torque_on( int16_t *motion){	//motion[i]*2を2*motion[i]に変え、uint8_t
 	sendbuf[7+2*motion[1]] = checksum;
 	numofbuf = 7+2*motion[1];
 	send_data( (int16_t*)motion);
+	period = 0;
+	maxperiod = 10000000;
+//	precommandfull = adr_Neutral;
 }
 
 void torque_off( int16_t *motion){	//motion[i]*2を2*motion[i]に変え、uint8_tをint8_tにしたら動いた。//と思ったら動いていない//動いた。test_motionでIDが小さい方からすべて使われることが前提になっているので、注意
@@ -173,6 +228,9 @@ void torque_off( int16_t *motion){	//motion[i]*2を2*motion[i]に変え、uint8_
 	sendbuf[7+2*motion[1]] = checksum;
 	numofbuf = 7+2*motion[1];
 	send_data( (int16_t*)motion);
+	period = 0;
+	maxperiod = 10000000;
+//	precommandfull = adr_Neutral;
 }
 
 void data_to_motion( int16_t *motion){
