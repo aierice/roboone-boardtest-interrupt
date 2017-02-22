@@ -41,19 +41,22 @@ uint32_t millis(void ){
 uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 	uint16_t ret = 0;
 	switch(precommandfull){
-		case adr_Walk_front:		//é¿ç€ÇÕÇ±ÇÍÇÕÇ†ÇËÇ¶Ç»Ç¢Ç™ÅCâ¬ì«ê´ÇÃÇΩÇﬂ
-		case adr_Walk_front|0b0000000000010000:{
+		case adr_Walk_front_Start:		//é¿ç€ÇÕÇ±ÇÍÇÕÇ†ÇËÇ¶Ç»Ç¢Ç™ÅCâ¬ì«ê´ÇÃÇΩÇﬂ
+		case adr_Walk_front_Loop:{
 			switch(nowcommandfull){
-				case adr_Walk_left:
-				case adr_Walk_left_front:
-					ret = adr_Walk_left|0b0000000000110000;
+				case adr_Walk_left_Loop:
+				case adr_Walk_left_Loop|0b0000000000000001:
+					ret = adr_Walk_left_from_front;
 					break;
-				case adr_Walk_right:
-				case adr_Walk_right_front:
-					ret = adr_Walk_right|0b0000000000110000;
-						break;
-				case adr_Atk_3:
-					ret = adr_Atk_3|0b0000000000110000;
+				case adr_Walk_right_Loop:
+				case adr_Walk_right_Loop|0b0000000000000001:
+					ret = adr_Walk_right_from_front;
+					break;
+				case adr_Attack_3_front_left:
+					ret = adr_Attack_3_front_left|0b0011000000000000;
+					break;
+				case adr_Walk_front_Start|0b0000100000000000:
+					ret = adr_Walk_front_Start;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
@@ -62,12 +65,15 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 			}
 		}
 		break;
-		case adr_Walk_left:
-		case adr_Walk_left|0b00000000000010000:
+		case adr_Walk_left_Loop:
+		case adr_Walk_left_Loop|0b0000000000010000:
 			switch(nowcommandfull){
-				case adr_Walk_front:
-				case adr_Walk_left_front:
-					ret = adr_Walk_front|0b0000000000110000;
+				case adr_Walk_front_Start:
+				case adr_Walk_front_Start|0b0000000000000100:
+					ret = adr_Walk_front_from_left;
+					break;
+				case adr_Attack_1_ing_left:
+					ret = adr_Attack_1_ing_left|0b0011000000000000;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
@@ -75,12 +81,15 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 					break;
 			}
 		break;
-		case adr_Walk_right:
-		case adr_Walk_right|0b00000000000010000:
+		case adr_Walk_right_Loop:
+		case adr_Walk_right_Loop|0b0000000000010000:
 			switch(nowcommandfull){
-				case adr_Walk_front:
-				case adr_Walk_right_front:
-					ret = adr_Walk_front|0b0000000001110000;
+				case adr_Walk_front_Start:
+				case adr_Walk_front_Start|0b0000000000000100:
+					ret = adr_Walk_front_from_right;
+					break;
+				case adr_Attack_1_ing_right:
+					ret = adr_Attack_1_ing_right|0b0011000000000000;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
@@ -89,22 +98,60 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 			}
 		break;
 
-
-		case adr_test:
-		case adr_test|0b00000000000010000:
+		case adr_Walk_front_righthand_Start:		//é¿ç€ÇÕÇ±ÇÍÇÕÇ†ÇËÇ¶Ç»Ç¢Ç™ÅCâ¬ì«ê´ÇÃÇΩÇﬂ
+		case adr_Walk_front_righthand_Loop:{
 			switch(nowcommandfull){
-				case adr_test2:
-					ret = adr_test2|0b0000000000110000;
+				case adr_Walk_left_righthand_Loop:
+				case adr_Walk_left_righthand_Loop|0b0000000000000001:
+					ret = adr_Walk_left_from_front_righthand;
+					break;
+				case adr_Walk_right_righthand_Loop:
+				case adr_Walk_right_righthand_Loop|0b0000000000000001:
+					ret = adr_Walk_right_from_front_righthand;
+					break;
+				case adr_Attack_6_righthand:
+					ret = adr_Attack_6_righthand|0b0011000000000000;
+					break;
+				case adr_Walk_front_righthand_Start|0b0000100000000000:
+					ret = adr_Walk_front_righthand_Start;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
 					ret = ret&0b1111111111101111;
-//					ret = (0x8021);
+					break;
+			}
+		}
+		break;
+		case adr_Walk_left_righthand_Loop:
+		case adr_Walk_left_righthand_Loop|0b0000000000010000:
+			switch(nowcommandfull){
+				case adr_Walk_front_righthand_Start:
+				case adr_Walk_front_righthand_Start|0b0000000000000100:
+					ret = adr_Walk_front_from_left_righthand;
+					break;
+				default:
+					ret = precommandfull|0b000000000100000;
+					ret = ret&0b1111111111101111;
 					break;
 			}
 		break;
+		case adr_Walk_right_righthand_Loop:
+		case adr_Walk_right_righthand_Loop|0b0000000000010000:
+			switch(nowcommandfull){
+				case adr_Walk_front_righthand_Start:
+				case adr_Walk_front_righthand_Start|0b0000000000000100:
+					ret = adr_Walk_front_from_right_righthand;
+					break;
+				default:
+					ret = precommandfull|0b000000000100000;
+					ret = ret&0b1111111111101111;
+					break;
+			}
+		break;
+
 		default:
-			ret = precommandfull|0b0000000000100000;
+			ret = precommandfull|0b000000000100000;
+			ret = ret&0b1111111111101111;
 		break;
 	}
 //	GPIO_ResetBits(GPIOA,GPIO_Pin_11);
@@ -139,7 +186,7 @@ void millis_test(void ){
 				myreturn = commandfull;
 				break;
 			case 4:
-				myreturn = precommandfull & 0b1111111100001111;
+				myreturn = precommandfull & 0b1000111100001111;
 				myreturn = myreturn|0b0000000000010000;
 				break;
 			default://GPIO_SetBits(GPIOA,GPIO_Pin_11);

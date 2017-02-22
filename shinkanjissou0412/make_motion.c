@@ -27,6 +27,18 @@ void select_motion(uint16_t commandfull){
 			motionphase = 0;
 			data_to_motion( (int16_t*)Neutral);
 								break;
+
+
+
+		case adr_Righthand:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Righthand);
+								break;
+		case adr_Sit:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Sit);
+								break;
+
 		case adr_torque_on:
 			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
@@ -35,145 +47,187 @@ void select_motion(uint16_t commandfull){
 		case adr_torque_off:
 			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
+			data_to_motion( (int16_t*)Sit);
 			torque_off( (int16_t*)Walk_front_Start);
 //			tdelay(1000);
 								break;
-		case adr_Walk_front:
+		case adr_Walk_front_Start:
+		case adr_Attack_3_front_left:
+		case adr_Attack_3_front_right:
+		case adr_Walk_front_Start|0b0000100000000000:
+			precommandfull = adr_Walk_front_Start;
 			motionphase = 1;
 			data_to_motion( (int16_t*)Walk_front_Start);
 								break;
-		case adr_Walk_front|0b0000000000010000:
+		case adr_Walk_front_Start|0b0000000000010000:
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_front_Loop);
 								break;
-		case adr_Walk_front|0b0000000000100000:
+		case adr_Walk_front_Start|0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_front_End);
 								break;
-		case adr_Walk_front|0b0000000000110000:
+		case adr_Walk_front_from_left:
+		case adr_Walk_front_from_left2:
 			motionphase = 4;
 			data_to_motion( (int16_t*)Walk_front_from_left);
 								break;
-		case adr_Walk_front|0b0000000001110000:
+		case adr_Walk_front_from_right:
+		case adr_Walk_front_from_right2:
 			motionphase = 4;
 			data_to_motion( (int16_t*)Walk_front_from_right);
 								break;
-		case adr_Walk_left:
-		case adr_Walk_left|0b0000000000010000:
+		case adr_Walk_left_Loop:
+		case adr_Walk_left_Loop|0b0000000000010000:
+		case adr_Walk_left_Loop|0b0000100000000000:
+			precommandfull = adr_Walk_left_Loop;
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_left_Loop);
 								break;
-		case adr_Walk_left|0b0000000000100000:
+		case adr_Walk_left_Loop|0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_left_End);
 								break;
-		case adr_Walk_left|0b0000000000110000:
+		case adr_Walk_left_from_front:
+		case adr_Walk_left_from_front2:
 			motionphase = 4;
 			data_to_motion( (int16_t*)Walk_left_from_front);
 								break;
-		case adr_Walk_right:
-		case adr_Walk_right|0b0000000000010000:
+		case adr_Walk_right_Loop:
+		case adr_Walk_right_Loop|0b0000000000010000:
+		case adr_Walk_right_Loop|0b0000100000000000:
+			precommandfull = adr_Walk_right_Loop;
 			motionphase = 2;
 			data_to_motion( (int16_t*)Walk_right_Loop);
 								break;
-		case adr_Walk_right|0b0000000000100000:
+		case adr_Walk_right_Loop|0b0000000000100000:
 			motionphase = 3;
 			data_to_motion( (int16_t*)Walk_right_End);
 								break;
-		case adr_Walk_right|0b0000000000110000:
+		case adr_Walk_right_from_front:
+		case adr_Walk_right_from_front2:
 			motionphase = 4;
 			data_to_motion( (int16_t*)Walk_right_from_front);
 								break;
-		case adr_Atk_3:
-			motionphase = 0;
-			data_to_motion( (int16_t*)Atk_3);
+
+
+		case adr_Walk_front_righthand_Start:
+			motionphase = 1;
+			data_to_motion( (int16_t*)Walk_front_righthand_Start);
 								break;
-		case adr_Atk_3|0b0000000000110000:
-					motionphase = 0;
-					data_to_motion( (int16_t*)Atk_3_from_front);
-								break;
-/*		case adr_Walk_behind:
-		case adr_Walk_behind|0b0000000000010000:	//実際には不要っぽいが，可読性のため
+		case adr_Walk_front_righthand_Start|0b0000000000010000:
 			motionphase = 2;
-			data_to_motion( (int16_t*)Walk_behind_Loop);
+			data_to_motion( (int16_t*)Walk_front_righthand_Loop);
 								break;
-		case adr_Walk_behind|0b0000000000100000:
+		case adr_Walk_front_righthand_Start|0b0000000000100000:
 			motionphase = 3;
-			data_to_motion( (int16_t*)Walk_behind_End);
+			data_to_motion( (int16_t*)Walk_front_righthand_End);
 								break;
-		case adr_Walk_left:
-		case adr_Walk_left|0b0000000000010000:
-			motionphase = 2;
-			data_to_motion( (int16_t*)Walk_left_Loop);
-								break;
-		case adr_Walk_left|0b0000000000100000:
-			motionphase = 3;
-			data_to_motion( (int16_t*)Walk_left_End);
-								break;
-		case adr_Walk_left|0b0000000000110000:
+		case adr_Walk_front_from_left_righthand:
+		case adr_Walk_front_from_left_righthand2:
 			motionphase = 4;
-			data_to_motion( (int16_t*)Walk_left_Loop_from_front);
+			data_to_motion( (int16_t*)Walk_front_from_left_righthand);
 								break;
-		case adr_Walk_right:
-		case adr_Walk_right|0b0000000000010000:
-			motionphase = 2;
-			data_to_motion( (int16_t*)Walk_right_Loop);
-								break;
-		case adr_Walk_right|0b0000000000100000:
-			motionphase = 3;
-			data_to_motion( (int16_t*)Walk_right_End);
-								break;
-		case adr_Walk_right|0b0000000000110000:
+		case adr_Walk_front_from_right_righthand:
+		case adr_Walk_front_from_right_righthand2:
 			motionphase = 4;
-			data_to_motion( (int16_t*)Walk_right_Loop_from_front);
+			data_to_motion( (int16_t*)Walk_front_from_right_righthand);
 								break;
-		case adr_Atk_left:
+		case adr_Walk_left_righthand_Loop:
+		case adr_Walk_left_righthand_Loop|0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_left_righthand_Loop);
+								break;
+		case adr_Walk_left_righthand_Loop|0b0000000000100000:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_left_righthand_End);
+								break;
+		case adr_Walk_left_from_front_righthand:
+		case adr_Walk_left_from_front_righthand2:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_left_from_front_righthand);
+								break;
+		case adr_Walk_right_righthand_Loop:
+		case adr_Walk_right_righthand_Loop|0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Walk_right_righthand_Loop);
+								break;
+		case adr_Walk_right_righthand_Loop|0b0000000000100000:
+			motionphase = 3;
+			data_to_motion( (int16_t*)Walk_right_righthand_End);
+								break;
+		case adr_Walk_right_from_front_righthand:
+		case adr_Walk_right_from_front_righthand2:
+			motionphase = 4;
+			data_to_motion( (int16_t*)Walk_right_from_front_righthand);
+								break;
+
+
+		case adr_Attack_1_ing_left|0b0011000000000000:
 			motionphase = 0;
-			data_to_motion( (int16_t*)Atk_left);
+			data_to_motion( (int16_t*)Attack_1_ing_left);
 								break;
-		case adr_Atk_right:
+		case adr_Attack_1_ing_right|0b0011000000000000:
 			motionphase = 0;
-			data_to_motion( (int16_t*)Atk_right);
+			data_to_motion( (int16_t*)Attack_1_ing_right);
 								break;
-		case adr_Stand_front:
+		case adr_Attack_2_sokkou_left:
 			motionphase = 0;
-			data_to_motion( (int16_t*)Stand_front);
+			data_to_motion( (int16_t*)Attack_2_sokkou_left);
 								break;
-		case adr_Stand_behind:
+		case adr_Attack_2_sokkou_right:
 			motionphase = 0;
-			data_to_motion( (int16_t*)Stand_behind);
+			data_to_motion( (int16_t*)Attack_2_sokkou_right);
 								break;
+		case adr_Attack_3_front_left|0b0011000000000000:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Attack_3_front_left);
+								break;
+		case adr_Attack_3_front_right|0b0011000000000000:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Attack_3_front_right);
+								break;
+		case adr_Attack_5_simple:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Attack_5_simple);
+								break;
+		case adr_Attack_6_righthand|0b0011000000000000:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Attack_6_righthand);
+								break;
+
+
 		case adr_Banzai:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Banzai);
 								break;
-		case adr_Tehuri:
+		case adr_Tehuri_Start:
 			motionphase = 0;
-			data_to_motion( (int16_t*)Tehuri);
+			data_to_motion( (int16_t*)Tehuri_Start);
 								break;
-		case adr_test:
+		case adr_Tehuri_Loop:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Tehuri_Loop);
+								break;
+		case adr_Juushin_Start:
 			motionphase = 1;
-			data_to_motion( (int16_t*)test_Start);
+			data_to_motion( (int16_t*)Juushin_Start);
 								break;
-		case adr_test|0b0000000000010000:
+		case adr_Juushin_Loop:
 			motionphase = 2;
-			data_to_motion( (int16_t*)test_Loop);
+			data_to_motion( (int16_t*)Juushin_Loop);
 								break;
-		case adr_test|0b0000000000100000:
-//			GPIO_SetBits(GPIOA,GPIO_Pin_11);
-			motionphase = 3;
-			data_to_motion( (int16_t*)test_End);
+
+		case adr_Turn_left_Loop:
+		case adr_Turn_left_Loop|0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Turn_left_Loop);
 								break;
-		case adr_test2:
-		case adr_test2|0b0000000000010000:
-			motionphase = 0;
-			data_to_motion( (int16_t*)test2);
+		case adr_Turn_right_Loop:
+		case adr_Turn_right_Loop|0b0000000000010000:
+			motionphase = 2;
+			data_to_motion( (int16_t*)Turn_right_Loop);
 								break;
-		case adr_test2|0b0000000000110000:
-			motionphase = 4;
-			data_to_motion( (int16_t*)test2_from_test);
-								break;
-*/
 		default:
 //			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
