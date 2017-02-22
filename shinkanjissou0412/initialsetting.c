@@ -63,7 +63,7 @@ void USART1_Configuration( void){
 	GPIO_PinAFConfig(GPIOB , GPIO_PinSource7 , GPIO_AF_USART1);
 
 	USART_InitTypeDef USART_InitStructure;
-	USART_InitStructure.USART_BaudRate = 115200;
+	USART_InitStructure.USART_BaudRate = 57600;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
 	USART_InitStructure.USART_Parity = USART_Parity_No;
