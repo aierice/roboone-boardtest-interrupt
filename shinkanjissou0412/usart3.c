@@ -131,7 +131,7 @@ void USART3_IRQHandler( void){
 			inpcommandfull = commandfull;
 			RXorder = 0;
 		}
-		if(numoferror >= 10){
+		if(numoferror >= 3){
 			while(1)GPIO_SetBits(GPIOA,GPIO_Pin_11);
 			commandfull = 0b1111111111111111;	//ã≠êßí‚é~
 		}

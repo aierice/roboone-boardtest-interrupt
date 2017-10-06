@@ -1,17 +1,22 @@
 #include "stm32f4xx.h"
 
 #ifndef MOTION_DEFINE_H_
-#define MOTION_DEFINE_H
+#define MOTION_DEFINE_H_
 #define adr_torque_on						0b1000100100000001
 #define adr_torque_off						0b1000100100000010
-#define adr_Attack_1_ing_left				0b1000100000000100
-#define adr_Attack_1_ing_right				0b1000100000001000
-#define adr_Attack_2_sokkou_left			0b1000000100000100
+#define adr_Attack_1_ing_left				0b1000110000000100
+#define adr_Attack_1_ing_right				0b1000110000001000
+#define adr_Attack_2_sokkou_left			0b1000 0001 0000 0100
 #define adr_Attack_2_sokkou_right			0b1000000100001000
-#define adr_Attack_3_front_left				0b1000100000000101
-#define adr_Attack_3_front_right			0b1000100000001001
-#define adr_Attack_5_simple					0b1000010100000000
+#define adr_Attack_3_front_left				0b1000110000000100
+#define adr_Attack_3_front_left2			0b1000110000000101
+#define adr_Attack_3_front_right			0b1000110000001000
+#define adr_Attack_3_front_right2			0b1000110000001001
+#define adr_Attack_3_front_right3			0b1000110000000001
+#define adr_Attack_5_simple					0b1000010000000000
 #define adr_Attack_6_righthand				0b1000011000000001
+#define adr_Attack_7_righthand				0b1000000000001111
+#define adr_Attack_8_sutemi					0b1000000000000011
 #define adr_Banzai							0b1000000000001110
 #define adr_Juushin_Start					0b1000000000001011
 #define adr_Juushin_Loop					0b1000000000011011
@@ -63,6 +68,8 @@ extern int16_t Attack_3_front_left[5][21];
 extern int16_t Attack_3_front_right[6][21];
 extern int16_t Attack_5_simple[4][21];
 extern int16_t Attack_6_righthand[4][21];
+extern int16_t Attack_7_righthand[5][21];
+extern int16_t Attack_8_sutemi[9][21];
 extern int16_t Banzai[6][21];
 extern int16_t Juushin_Start[3][21];
 extern int16_t Juushin_Loop[4][21];
@@ -87,7 +94,7 @@ extern int16_t Walk_front_righthand_Loop[8][21];
 extern int16_t Walk_front_righthand_End[5][21];
 extern int16_t Walk_left_Loop[6][21];
 extern int16_t Walk_left_End[6][21];
-extern int16_t Walk_left_from_front[5][21];
+extern int16_t Walk_left_from_front[4][21];
 extern int16_t Walk_left_from_front_righthand[4][21];
 extern int16_t Walk_left_righthand_Loop[6][21];
 extern int16_t Walk_left_righthand_End[6][21];

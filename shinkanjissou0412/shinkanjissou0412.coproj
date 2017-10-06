@@ -105,8 +105,8 @@
     <File name="cmsis_boot/test.c" path="test.c" type="1"/>
     <File name="cmsis_boot/make_motion.c" path="make_motion.c" type="1"/>
     <File name="cmsis_boot/millis.h" path="millis.h" type="1"/>
-    <File name="cmsis" path="" type="2"/>
     <File name="cmsis_lib/source/misc.c" path="cmsis_lib/source/misc.c" type="1"/>
+    <File name="cmsis" path="" type="2"/>
     <File name="cmsis_lib/include/stm32f4xx_tim.h" path="cmsis_lib/include/stm32f4xx_tim.h" type="1"/>
     <File name="cmsis_lib" path="" type="2"/>
     <File name="cmsis_boot/usart3.h" path="usart3.h" type="1"/>

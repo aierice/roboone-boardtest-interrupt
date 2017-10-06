@@ -53,10 +53,16 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 					ret = adr_Walk_right_from_front;
 					break;
 				case adr_Attack_3_front_left:
-					ret = adr_Attack_3_front_left|0b0011000000000000;
+				case adr_Attack_3_front_left2:
+					ret = adr_Attack_3_front_left|0b0111000000000000;
+					break;
+				case adr_Attack_3_front_right:
+				case adr_Attack_3_front_right2:
+				case adr_Attack_3_front_right3:
+					ret = adr_Attack_3_front_right|0b0111000000000000;
 					break;
 				case adr_Walk_front_Start|0b0000100000000000:
-					ret = adr_Walk_front_Start;
+					ret = adr_Walk_front_Loop;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
@@ -75,6 +81,9 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 				case adr_Attack_1_ing_left:
 					ret = adr_Attack_1_ing_left|0b0011000000000000;
 					break;
+				case adr_Walk_left_Loop|0b0000100000000000:
+					ret = adr_Walk_left_Loop;
+					break;
 				default:
 					ret = precommandfull|0b000000000100000;
 					ret = ret&0b1111111111101111;
@@ -90,6 +99,9 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 					break;
 				case adr_Attack_1_ing_right:
 					ret = adr_Attack_1_ing_right|0b0011000000000000;
+					break;
+				case adr_Walk_right_Loop|0b0000100000000000:
+					ret = adr_Walk_right_Loop;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
@@ -113,7 +125,7 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 					ret = adr_Attack_6_righthand|0b0011000000000000;
 					break;
 				case adr_Walk_front_righthand_Start|0b0000100000000000:
-					ret = adr_Walk_front_righthand_Start;
+					ret = adr_Walk_front_righthand_Loop;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;
@@ -129,6 +141,9 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 				case adr_Walk_front_righthand_Start|0b0000000000000100:
 					ret = adr_Walk_front_from_left_righthand;
 					break;
+				case adr_Walk_left_righthand_Loop|0b0000100000000000:
+					ret = adr_Walk_left_righthand_Loop;
+					break;
 				default:
 					ret = precommandfull|0b000000000100000;
 					ret = ret&0b1111111111101111;
@@ -141,6 +156,9 @@ uint16_t migration_checker(uint16_t precommandfull,uint16_t nowcommandfull){
 				case adr_Walk_front_righthand_Start:
 				case adr_Walk_front_righthand_Start|0b0000000000000100:
 					ret = adr_Walk_front_from_right_righthand;
+					break;
+				case adr_Walk_right_righthand_Loop|0b0000100000000000:
+					ret = adr_Walk_right_righthand_Loop;
 					break;
 				default:
 					ret = precommandfull|0b000000000100000;

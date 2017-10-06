@@ -47,7 +47,7 @@ void select_motion(uint16_t commandfull){
 		case adr_torque_off:
 			GPIO_ResetBits(GPIOA,GPIO_Pin_11);
 			motionphase = 0;
-			data_to_motion( (int16_t*)Sit);
+//			data_to_motion( (int16_t*)Sit);
 			torque_off( (int16_t*)Walk_front_Start);
 //			tdelay(1000);
 								break;
@@ -179,11 +179,11 @@ void select_motion(uint16_t commandfull){
 			motionphase = 0;
 			data_to_motion( (int16_t*)Attack_2_sokkou_right);
 								break;
-		case adr_Attack_3_front_left|0b0011000000000000:
+		case adr_Attack_3_front_left|0b0111000000000000:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Attack_3_front_left);
 								break;
-		case adr_Attack_3_front_right|0b0011000000000000:
+		case adr_Attack_3_front_right|0b0111000000000000:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Attack_3_front_right);
 								break;
@@ -195,8 +195,20 @@ void select_motion(uint16_t commandfull){
 			motionphase = 0;
 			data_to_motion( (int16_t*)Attack_6_righthand);
 								break;
+		case adr_Attack_8_sutemi|0b0011000000000000:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Attack_6_righthand);
+								break;
 
 
+		case adr_Stand_J:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Stand_J);
+								break;
+		case adr_Stand_K:
+			motionphase = 0;
+			data_to_motion( (int16_t*)Stand_K);
+								break;
 		case adr_Banzai:
 			motionphase = 0;
 			data_to_motion( (int16_t*)Banzai);
